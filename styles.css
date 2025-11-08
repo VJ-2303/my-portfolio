@@ -15,52 +15,30 @@ body.menu-open {
     overflow: hidden;
 }
 
-/* Clean Modern Background */
+/* Clean Minimalist Background */
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
-    color: #e4e4e7;
+    background: #000000;
+    color: #ffffff;
     line-height: 1.6;
     overflow-x: hidden;
     position: relative;
 }
 
-/* Subtle grid overlay for texture */
-body::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: 
-        linear-gradient(rgba(99, 102, 241, 0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(99, 102, 241, 0.03) 1px, transparent 1px);
-    background-size: 50px 50px;
-    pointer-events: none;
-    z-index: -1;
-    animation: subtleMove 20s ease-in-out infinite;
-}
-
-@keyframes subtleMove {
-    0%, 100% { transform: translate(0, 0); }
-    50% { transform: translate(-1px, -1px); }
-}
-
-/* Custom Properties */
+/* Custom Properties - Minimalist Black, White, Blue */
 :root {
-    --primary-color: #6366f1;
-    --secondary-color: #a855f7;
-    --accent-color: #f59e0b;
-    --background-dark: #0f0f0f;
-    --surface-dark: #1a1a1a;
-    --surface-light: #2a2a2a;
-    --text-primary: #e4e4e7;
-    --text-secondary: #a1a1aa;
-    --text-muted: #71717a;
-    --border-color: #2a2a2a;
-    --gradient-primary: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-    --gradient-accent: linear-gradient(135deg, var(--accent-color), #ef4444);
+    --primary-color: #2563eb;
+    --secondary-color: #1d4ed8;
+    --accent-color: #3b82f6;
+    --background-dark: #000000;
+    --surface-dark: #0a0a0a;
+    --surface-light: #1a1a1a;
+    --text-primary: #ffffff;
+    --text-secondary: #d4d4d8;
+    --text-muted: #a1a1aa;
+    --border-color: #3b82f6;
+    --gradient-primary: var(--primary-color);
+    --gradient-accent: var(--accent-color);
 }
 
 /* Container */
@@ -77,9 +55,9 @@ body::before {
     left: 0;
     right: 0;
     z-index: 100;
-    background: rgba(15, 15, 15, 0.9);
+    background: #000000;
     backdrop-filter: blur(20px);
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 1px solid #3b82f6;
     transform: translateY(-100%);
     transition: transform 0.3s ease;
 }
@@ -101,7 +79,7 @@ body::before {
 .nav-logo .logo-text {
     font-size: 1.5rem;
     font-weight: 700;
-    background: var(--gradient-primary);
+    background: #2563eb;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -133,7 +111,7 @@ body::before {
     left: 0;
     right: 0;
     height: 2px;
-    background: var(--gradient-primary);
+    background: #2563eb;
     transform: scaleX(0);
     transition: transform 0.3s ease;
 }
@@ -151,9 +129,7 @@ body::before {
     align-items: center;
     position: relative;
     padding: 0 2rem;
-    background: 
-        radial-gradient(ellipse at top, rgba(99, 102, 241, 0.1) 0%, transparent 50%),
-        radial-gradient(ellipse at bottom, rgba(168, 85, 247, 0.05) 0%, transparent 50%);
+    background: #000000;
 }
 
 .hero-content {
@@ -181,7 +157,7 @@ body::before {
 }
 
 .title-name {
-    background: var(--gradient-primary);
+    background: #2563eb;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -206,7 +182,7 @@ body::before {
 
 .hero-subtitle {
     font-size: 1.25rem;
-    color: var(--accent-color);
+    color: #3b82f6;
     font-weight: 500;
     margin-bottom: 1rem;
 }
@@ -236,31 +212,31 @@ body::before {
 }
 
 .cta-button.primary {
-    background: var(--gradient-primary);
+    background: #2563eb;
     color: white;
 }
 
 .cta-button.primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
+    box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
 }
 
 .cta-button.secondary {
     color: var(--text-primary);
-    border-color: var(--border-color);
+    border-color: #3b82f6;
     background: transparent;
 }
 
 .cta-button.secondary:hover {
-    border-color: var(--primary-color);
-    background: rgba(99, 102, 241, 0.1);
+    border-color: #2563eb;
+    background: rgba(37, 99, 235, 0.1);
 }
 
 /* Console */
 .hero-console {
     background: var(--surface-dark);
     border-radius: 0.75rem;
-    border: 1px solid var(--border-color);
+    border: 1px solid #3b82f6;
     overflow: hidden;
     animation: fadeInUp 1s ease 0.4s both;
     width: 80%;
@@ -273,7 +249,7 @@ body::before {
     justify-content: space-between;
     padding: 1rem 1.5rem;
     background: var(--surface-light);
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 1px solid #3b82f6;
 }
 
 .console-dots {
@@ -287,9 +263,9 @@ body::before {
     border-radius: 50%;
 }
 
-.dot.red { background: #ef4444; }
-.dot.yellow { background: #f59e0b; }
-.dot.green { background: #10b981; }
+.dot.red { background: #ffffff; }
+.dot.yellow { background: #3b82f6; }
+.dot.green { background: #2563eb; }
 
 .console-title {
     font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
@@ -311,7 +287,7 @@ body::before {
 }
 
 .prompt {
-    color: var(--accent-color);
+    color: #3b82f6;
     font-weight: 600;
 }
 
@@ -320,7 +296,7 @@ body::before {
 }
 
 .cursor {
-    color: var(--primary-color);
+    color: #2563eb;
     animation: blink 1s infinite;
 }
 
@@ -398,7 +374,7 @@ section {
     font-size: clamp(2rem, 4vw, 3rem);
     font-weight: 700;
     margin-bottom: 1rem;
-    background: var(--gradient-primary);
+    background: #2563eb;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -419,7 +395,7 @@ section {
 /* Projects Section */
 .projects {
     background: var(--surface-dark);
-    border-top: 1px solid rgba(99, 102, 241, 0.1);
+    border-top: 1px solid #3b82f6;
 }
 
 .projects-grid {
@@ -430,7 +406,7 @@ section {
 
 .project-card {
     background: var(--background-dark);
-    border: 1px solid var(--border-color);
+    border: 1px solid #3b82f6;
     border-radius: 1rem;
     padding: 2rem;
     transition: all 0.3s ease;
@@ -445,7 +421,7 @@ section {
     left: 0;
     right: 0;
     height: 3px;
-    background: var(--gradient-primary);
+    background: #2563eb;
     transform: scaleX(0);
     transition: transform 0.3s ease;
 }
@@ -456,7 +432,7 @@ section {
 
 .project-card:hover {
     transform: translateY(-5px);
-    border-color: var(--primary-color);
+    border-color: #2563eb;
 }
 
 .project-header {
@@ -481,7 +457,7 @@ section {
 }
 
 .project-link:hover {
-    color: var(--primary-color);
+    color: #2563eb;
 }
 
 .project-title {
@@ -510,7 +486,7 @@ section {
     border-radius: 1rem;
     font-size: 0.875rem;
     font-weight: 500;
-    border: 1px solid var(--border-color);
+    border: 1px solid #3b82f6;
 }
 
 /* Skills Section */
@@ -522,7 +498,7 @@ section {
 
 .skill-category {
     background: var(--surface-dark);
-    border: 1px solid var(--border-color);
+    border: 1px solid #3b82f6;
     border-radius: 1rem;
     padding: 2rem;
 }
@@ -531,7 +507,7 @@ section {
     font-size: 1.25rem;
     font-weight: 600;
     margin-bottom: 1.5rem;
-    color: var(--accent-color);
+    color: #3b82f6;
 }
 
 .skill-items {
@@ -545,7 +521,7 @@ section {
     justify-content: space-between;
     align-items: center;
     padding: 0.75rem 0;
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 1px solid #3b82f6;
 }
 
 .skill-item:last-child {
@@ -570,19 +546,7 @@ section {
     background: var(--background-dark);
     position: relative;
     overflow: hidden;
-    border-top: 1px solid rgba(99, 102, 241, 0.1);
-}
-
-.about::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: radial-gradient(circle at 30% 20%, rgba(99, 102, 241, 0.05) 0%, transparent 50%),
-                radial-gradient(circle at 70% 80%, rgba(168, 85, 247, 0.05) 0%, transparent 50%);
-    pointer-events: none;
+    border-top: 1px solid #3b82f6;
 }
 
 .about .container {
@@ -617,7 +581,7 @@ section {
 
 .profile-card {
     background: var(--surface-dark);
-    border: 1px solid var(--border-color);
+    border: 1px solid #3b82f6;
     border-radius: 1.5rem;
     padding: 2rem;
     text-align: center;
@@ -633,7 +597,7 @@ section {
     left: 0;
     right: 0;
     height: 4px;
-    background: var(--gradient-primary);
+    background: #2563eb;
     transform: scaleX(0);
     transition: transform 0.4s ease;
 }
@@ -644,8 +608,8 @@ section {
 
 .profile-card:hover {
     transform: translateY(-5px);
-    border-color: var(--primary-color);
-    box-shadow: 0 20px 40px rgba(99, 102, 241, 0.1);
+    border-color: #2563eb;
+    box-shadow: 0 20px 40px rgba(37, 99, 235, 0.1);
 }
 
 .profile-avatar {
@@ -657,7 +621,7 @@ section {
     width: 120px;
     height: 120px;
     border-radius: 50%;
-    background: var(--gradient-primary);
+    background: #2563eb;
     margin: 0 auto 1rem;
     display: flex;
     align-items: center;
@@ -681,7 +645,7 @@ section {
     bottom: -10px;
     border: 3px solid transparent;
     border-radius: 50%;
-    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+    background: #2563eb;
     background-clip: padding-box;
     animation: rotate 8s linear infinite;
     opacity: 0.3;
@@ -697,18 +661,18 @@ section {
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    background: rgba(16, 185, 129, 0.1);
-    border: 1px solid #10b981;
+    background: rgba(37, 99, 235, 0.1);
+    border: 1px solid #2563eb;
     border-radius: 2rem;
     padding: 0.5rem 1rem;
     font-size: 0.875rem;
-    color: #10b981;
+    color: #3b82f6;
 }
 
 .status-dot {
     width: 8px;
     height: 8px;
-    background: #10b981;
+    background: #3b82f6;
     border-radius: 50%;
     animation: pulse 2s infinite;
 }
@@ -726,7 +690,7 @@ section {
     font-size: 1.5rem;
     font-weight: 700;
     margin-bottom: 0.5rem;
-    background: var(--gradient-primary);
+    background: #2563eb;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -751,18 +715,18 @@ section {
 }
 
 .badge {
-    background: rgba(99, 102, 241, 0.1);
-    color: var(--primary-color);
+    background: rgba(37, 99, 235, 0.1);
+    color: #2563eb;
     padding: 0.5rem 1rem;
     border-radius: 2rem;
     font-size: 0.875rem;
     font-weight: 500;
-    border: 1px solid rgba(99, 102, 241, 0.2);
+    border: 1px solid rgba(37, 99, 235, 0.2);
     transition: all 0.3s ease;
 }
 
 .badge:hover {
-    background: rgba(99, 102, 241, 0.2);
+    background: rgba(37, 99, 235, 0.2);
     transform: translateY(-2px);
 }
 
@@ -775,7 +739,7 @@ section {
 .timeline-card,
 .interests-card {
     background: var(--surface-dark);
-    border: 1px solid var(--border-color);
+    border: 1px solid #3b82f6;
     border-radius: 1.5rem;
     padding: 2rem;
     height: fit-content;
@@ -786,8 +750,8 @@ section {
 .timeline-card:hover,
 .interests-card:hover {
     transform: translateY(-5px);
-    border-color: var(--primary-color);
-    box-shadow: 0 20px 40px rgba(99, 102, 241, 0.1);
+    border-color: #2563eb;
+    box-shadow: 0 20px 40px rgba(37, 99, 235, 0.1);
 }
 
 .card-header {
@@ -796,7 +760,7 @@ section {
     gap: 1rem;
     margin-bottom: 1.5rem;
     padding-bottom: 1rem;
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 1px solid #3b82f6;
 }
 
 .card-icon {
@@ -804,7 +768,7 @@ section {
     width: 3rem;
     height: 3rem;
     border-radius: 0.75rem;
-    background: rgba(99, 102, 241, 0.1);
+    background: rgba(37, 99, 235, 0.1);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -823,8 +787,8 @@ section {
 }
 
 .highlight-box {
-    background: rgba(245, 158, 11, 0.05);
-    border: 1px solid rgba(245, 158, 11, 0.2);
+    background: rgba(37, 99, 235, 0.05);
+    border: 1px solid rgba(37, 99, 235, 0.2);
     border-radius: 1rem;
     padding: 1.5rem;
     margin-top: 1.5rem;
@@ -839,7 +803,7 @@ section {
 }
 
 .highlight-content h4 {
-    color: var(--accent-color);
+    color: #3b82f6;
     font-size: 1rem;
     font-weight: 600;
     margin-bottom: 0.5rem;
@@ -867,7 +831,7 @@ section {
 
 .stat-card {
     background: var(--surface-dark);
-    border: 1px solid var(--border-color);
+    border: 1px solid #3b82f6;
     border-radius: 1rem;
     padding: 1.5rem;
     display: flex;
@@ -885,7 +849,7 @@ section {
     left: 0;
     right: 0;
     height: 3px;
-    background: var(--gradient-primary);
+    background: #2563eb;
     transform: scaleX(0);
     transition: transform 0.4s ease;
 }
@@ -896,8 +860,8 @@ section {
 
 .stat-card:hover {
     transform: translateY(-3px);
-    border-color: var(--primary-color);
-    box-shadow: 0 15px 30px rgba(99, 102, 241, 0.1);
+    border-color: #2563eb;
+    box-shadow: 0 15px 30px rgba(37, 99, 235, 0.1);
 }
 
 .stat-icon {
@@ -905,7 +869,7 @@ section {
     width: 3rem;
     height: 3rem;
     border-radius: 0.75rem;
-    background: rgba(99, 102, 241, 0.1);
+    background: rgba(37, 99, 235, 0.1);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -920,7 +884,7 @@ section {
 .stat-number {
     font-size: 1.75rem;
     font-weight: 700;
-    background: var(--gradient-primary);
+    background: #2563eb;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -949,7 +913,7 @@ section {
     top: 0;
     bottom: 0;
     width: 2px;
-    background: var(--border-color);
+    background: #3b82f6;
 }
 
 .timeline-item {
@@ -973,15 +937,15 @@ section {
     height: 1rem;
     border-radius: 50%;
     background: var(--surface-light);
-    border: 3px solid var(--border-color);
+    border: 3px solid #3b82f6;
     position: relative;
     z-index: 1;
 }
 
 .marker-dot.active {
-    background: var(--primary-color);
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.2);
+    background: #2563eb;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.2);
 }
 
 .timeline-info h4 {
@@ -1011,7 +975,7 @@ section {
 
 .interest-item {
     background: var(--surface-light);
-    border: 1px solid var(--border-color);
+    border: 1px solid #3b82f6;
     border-radius: 0.75rem;
     padding: 1rem;
     text-align: center;
@@ -1020,8 +984,8 @@ section {
 }
 
 .interest-item:hover {
-    background: rgba(99, 102, 241, 0.1);
-    border-color: var(--primary-color);
+    background: rgba(37, 99, 235, 0.1);
+    border-color: #2563eb;
     transform: translateY(-3px);
 }
 
@@ -1281,19 +1245,7 @@ section {
     padding: 6rem 0;
     position: relative;
     overflow: hidden;
-    border-top: 1px solid rgba(99, 102, 241, 0.1);
-}
-
-.contact::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: radial-gradient(circle at 20% 50%, rgba(99, 102, 241, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.1) 0%, transparent 50%);
-    pointer-events: none;
+    border-top: 1px solid #3b82f6;
 }
 
 .contact-hero {
@@ -1312,12 +1264,12 @@ section {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    background: rgba(99, 102, 241, 0.1);
-    border: 1px solid rgba(99, 102, 241, 0.2);
+    background: rgba(37, 99, 235, 0.1);
+    border: 1px solid rgba(37, 99, 235, 0.2);
     border-radius: 2rem;
     padding: 0.75rem 1.5rem;
     margin-bottom: 2rem;
-    color: var(--primary-color);
+    color: #2563eb;
     font-size: 0.9rem;
     font-weight: 500;
 }
@@ -1358,7 +1310,7 @@ section {
 
 .contact-card {
     background: var(--background-dark);
-    border: 1px solid var(--border-color);
+    border: 1px solid #3b82f6;
     border-radius: 1.25rem;
     padding: 2.5rem;
     position: relative;
@@ -1373,7 +1325,7 @@ section {
     left: 0;
     right: 0;
     height: 4px;
-    background: var(--gradient-primary);
+    background: #2563eb;
     transform: scaleX(0);
     transition: transform 0.4s ease;
 }
@@ -1384,8 +1336,8 @@ section {
 
 .contact-card:hover {
     transform: translateY(-8px);
-    border-color: var(--primary-color);
-    box-shadow: 0 20px 40px rgba(99, 102, 241, 0.2);
+    border-color: #2563eb;
+    box-shadow: 0 20px 40px rgba(37, 99, 235, 0.2);
 }
 
 .card-header {
@@ -1401,9 +1353,9 @@ section {
     justify-content: center;
     width: 3rem;
     height: 3rem;
-    background: rgba(99, 102, 241, 0.1);
+    background: rgba(37, 99, 235, 0.1);
     border-radius: 0.75rem;
-    color: var(--primary-color);
+    color: #2563eb;
 }
 
 .card-header h3 {
@@ -1440,36 +1392,36 @@ section {
 }
 
 .action-btn.primary {
-    background: var(--primary-color);
+    background: #2563eb;
     color: white;
 }
 
 .action-btn.primary:hover {
-    background: #5a5fcf;
+    background: #1d4ed8;
     transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
+    box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
 }
 
 .action-btn.secondary {
     background: var(--surface-dark);
     color: var(--text-primary);
-    border: 1px solid var(--border-color);
+    border: 1px solid #3b82f6;
 }
 
 .action-btn.secondary:hover {
-    border-color: var(--primary-color);
-    background: rgba(99, 102, 241, 0.05);
+    border-color: #2563eb;
+    background: rgba(37, 99, 235, 0.05);
     transform: translateY(-2px);
 }
 
 .action-btn.gradient {
-    background: var(--gradient-primary);
+    background: #2563eb;
     color: white;
 }
 
 .action-btn.gradient:hover {
     transform: translateY(-2px);
-    box-shadow: 0 15px 35px rgba(99, 102, 241, 0.4);
+    box-shadow: 0 15px 35px rgba(37, 99, 235, 0.4);
 }
 
 /* Social Section */
@@ -1496,7 +1448,7 @@ section {
     width: 3.5rem;
     height: 3.5rem;
     background: var(--background-dark);
-    border: 1px solid var(--border-color);
+    border: 1px solid #3b82f6;
     border-radius: 1rem;
     color: var(--text-secondary);
     text-decoration: none;
@@ -1515,9 +1467,9 @@ section {
     transition: left 0.3s ease;
 }
 
-.social-link.github::before { background: #333; }
-.social-link.linkedin::before { background: #0077b5; }
-.social-link.reddit::before { background: #ff4500; }
+.social-link.github::before { background: #2563eb; }
+.social-link.linkedin::before { background: #3b82f6; }
+.social-link.reddit::before { background: #1d4ed8; }
 
 .social-link:hover::before {
     left: 0;
@@ -1559,7 +1511,7 @@ section {
 
 .modal-content {
     background: var(--background-dark);
-    border: 1px solid var(--border-color);
+    border: 1px solid #3b82f6;
     border-radius: 1.25rem;
     padding: 2.5rem;
     width: 90%;
@@ -1632,7 +1584,7 @@ section {
 .form-group select,
 .form-group textarea {
     background: var(--surface-dark);
-    border: 1px solid var(--border-color);
+    border: 1px solid #3b82f6;
     border-radius: 0.75rem;
     padding: 1rem;
     color: var(--text-primary);
@@ -1645,8 +1597,8 @@ section {
 .form-group select:focus,
 .form-group textarea:focus {
     outline: none;
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
 }
 
 .form-group textarea {
@@ -1669,7 +1621,7 @@ section {
 .btn-secondary {
     background: var(--surface-dark);
     color: var(--text-primary);
-    border: 1px solid var(--border-color);
+    border: 1px solid #3b82f6;
     padding: 1rem 1.5rem;
     border-radius: 0.75rem;
     font-weight: 600;
@@ -1679,11 +1631,11 @@ section {
 
 .btn-secondary:hover {
     background: var(--background-dark);
-    border-color: var(--primary-color);
+    border-color: #2563eb;
 }
 
 .btn-primary {
-    background: var(--gradient-primary);
+    background: #2563eb;
     color: white;
     border: none;
     padding: 1rem 1.5rem;
@@ -1698,7 +1650,7 @@ section {
 
 .btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
+    box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
 }
 
 /* Mobile Navigation Toggle */
@@ -1742,9 +1694,9 @@ section {
         top: 4rem;
         left: 0;
         right: 0;
-        background: rgba(15, 15, 15, 0.95);
+        background: rgba(0, 0, 0, 0.95);
         backdrop-filter: blur(20px);
-        border-top: 1px solid var(--border-color);
+        border-top: 1px solid #3b82f6;
         flex-direction: column;
         padding: 2rem;
         gap: 1.5rem;
@@ -1771,28 +1723,26 @@ section {
 
 /* Add subtle section borders */
 .projects {
-    border-top: 1px solid rgba(99, 102, 241, 0.1);
+    border-top: 1px solid #3b82f6;
 }
 
 .about {
-    border-top: 1px solid rgba(99, 102, 241, 0.1);
+    border-top: 1px solid #3b82f6;
 }
 
 .contact {
-    border-top: 1px solid rgba(99, 102, 241, 0.1);
+    border-top: 1px solid #3b82f6;
 }
 
 /* Improved hero section gradient */
 .hero {
-    background: 
-        radial-gradient(ellipse at top, rgba(99, 102, 241, 0.1) 0%, transparent 50%),
-        radial-gradient(ellipse at bottom, rgba(168, 85, 247, 0.05) 0%, transparent 50%);
+    background: #000000;
 }
 
 /* Footer styling */
 .footer {
     background: var(--surface-dark);
-    border-top: 1px solid var(--border-color);
+    border-top: 1px solid #3b82f6;
     padding: 3rem 0 2rem;
     margin-top: 4rem;
 }
@@ -1817,7 +1767,7 @@ section {
 }
 
 .footer-link:hover {
-    color: var(--primary-color);
+    color: #2563eb;
 }
 
 /* Contact Section Mobile Responsive */
@@ -1950,19 +1900,7 @@ section {
     background: var(--surface-dark);
     position: relative;
     overflow: hidden;
-    border-top: 1px solid rgba(99, 102, 241, 0.1);
-}
-
-.timeline-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: radial-gradient(circle at 40% 30%, rgba(99, 102, 241, 0.05) 0%, transparent 50%),
-                radial-gradient(circle at 80% 70%, rgba(168, 85, 247, 0.05) 0%, transparent 50%);
-    pointer-events: none;
+    border-top: 1px solid #3b82f6;
 }
 
 .timeline-section .container {
@@ -1985,8 +1923,8 @@ section {
     width: 2px;
     background: linear-gradient(to bottom, 
         transparent 0%, 
-        var(--primary-color) 10%, 
-        var(--primary-color) 90%, 
+        #2563eb 10%, 
+        #2563eb 90%, 
         transparent 100%);
     transform: translateX(-50%);
     z-index: 1;
@@ -2038,27 +1976,27 @@ section {
     height: 20px;
     border-radius: 50%;
     background: var(--surface-dark);
-    border: 4px solid var(--border-color);
+    border: 4px solid #3b82f6;
     transition: all 0.4s ease;
     position: relative;
 }
 
 .marker-dot.active {
-    border-color: var(--primary-color);
-    background: var(--primary-color);
-    box-shadow: 0 0 0 6px rgba(99, 102, 241, 0.2);
+    border-color: #2563eb;
+    background: #2563eb;
+    box-shadow: 0 0 0 6px rgba(37, 99, 235, 0.2);
 }
 
 .marker-dot.achievement {
-    border-color: var(--accent-color);
-    background: var(--accent-color);
-    box-shadow: 0 0 0 6px rgba(245, 158, 11, 0.2);
+    border-color: #3b82f6;
+    background: #3b82f6;
+    box-shadow: 0 0 0 6px rgba(59, 130, 246, 0.2);
 }
 
 .marker-dot.future {
-    border-color: var(--secondary-color);
-    background: var(--secondary-color);
-    box-shadow: 0 0 0 6px rgba(168, 85, 247, 0.2);
+    border-color: #1d4ed8;
+    background: #1d4ed8;
+    box-shadow: 0 0 0 6px rgba(29, 78, 216, 0.2);
 }
 
 .marker-pulse {
@@ -2066,13 +2004,13 @@ section {
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    background: var(--primary-color);
+    background: #2563eb;
     opacity: 0.6;
     animation: pulse-ring 2s ease-out infinite;
 }
 
 .marker-pulse.future {
-    background: var(--secondary-color);
+    background: #1d4ed8;
 }
 
 @keyframes pulse-ring {
@@ -2093,7 +2031,7 @@ section {
 
 .timeline-card {
     background: var(--background-dark);
-    border: 1px solid var(--border-color);
+    border: 1px solid #3b82f6;
     border-radius: 1.25rem;
     padding: 2rem;
     transition: all 0.4s ease;
@@ -2108,7 +2046,7 @@ section {
     left: 0;
     right: 0;
     height: 3px;
-    background: var(--gradient-primary);
+    background: #2563eb;
     transform: scaleX(0);
     transition: transform 0.4s ease;
 }
@@ -2119,36 +2057,36 @@ section {
 
 .timeline-card:hover {
     transform: translateY(-8px);
-    border-color: var(--primary-color);
-    box-shadow: 0 20px 40px rgba(99, 102, 241, 0.15);
+    border-color: #2563eb;
+    box-shadow: 0 20px 40px rgba(37, 99, 235, 0.15);
 }
 
 .achievement-card {
-    background: linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(239, 68, 68, 0.05) 100%);
-    border-color: rgba(245, 158, 11, 0.3);
+    background: linear-gradient(135deg, rgba(37, 99, 235, 0.1) 0%, rgba(59, 130, 246, 0.05) 100%);
+    border-color: rgba(37, 99, 235, 0.3);
 }
 
 .achievement-card::before {
-    background: var(--gradient-accent);
+    background: #3b82f6;
 }
 
 .achievement-card:hover {
-    border-color: var(--accent-color);
-    box-shadow: 0 20px 40px rgba(245, 158, 11, 0.2);
+    border-color: #3b82f6;
+    box-shadow: 0 20px 40px rgba(37, 99, 235, 0.2);
 }
 
 .future-card {
-    background: linear-gradient(135deg, rgba(168, 85, 247, 0.1) 0%, rgba(99, 102, 241, 0.05) 100%);
-    border-color: rgba(168, 85, 247, 0.3);
+    background: linear-gradient(135deg, rgba(29, 78, 216, 0.1) 0%, rgba(37, 99, 235, 0.05) 100%);
+    border-color: rgba(29, 78, 216, 0.3);
 }
 
 .future-card::before {
-    background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+    background: linear-gradient(135deg, #1d4ed8, #2563eb);
 }
 
 .future-card:hover {
-    border-color: var(--secondary-color);
-    box-shadow: 0 20px 40px rgba(168, 85, 247, 0.2);
+    border-color: #1d4ed8;
+    box-shadow: 0 20px 40px rgba(29, 78, 216, 0.2);
 }
 
 .timeline-header {
@@ -2157,7 +2095,7 @@ section {
     justify-content: space-between;
     margin-bottom: 1.5rem;
     padding-bottom: 1rem;
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 1px solid #3b82f6;
 }
 
 .timeline-icon {
@@ -2168,23 +2106,23 @@ section {
 .timeline-date {
     font-size: 0.875rem;
     font-weight: 600;
-    color: var(--primary-color);
-    background: rgba(99, 102, 241, 0.1);
+    color: #2563eb;
+    background: rgba(37, 99, 235, 0.1);
     padding: 0.5rem 1rem;
     border-radius: 2rem;
-    border: 1px solid rgba(99, 102, 241, 0.2);
+    border: 1px solid rgba(37, 99, 235, 0.2);
 }
 
 .achievement-card .timeline-date {
-    color: var(--accent-color);
-    background: rgba(245, 158, 11, 0.1);
-    border-color: rgba(245, 158, 11, 0.2);
+    color: #3b82f6;
+    background: rgba(59, 130, 246, 0.1);
+    border-color: rgba(59, 130, 246, 0.2);
 }
 
 .future-card .timeline-date {
-    color: var(--secondary-color);
-    background: rgba(168, 85, 247, 0.1);
-    border-color: rgba(168, 85, 247, 0.2);
+    color: #1d4ed8;
+    background: rgba(29, 78, 216, 0.1);
+    border-color: rgba(29, 78, 216, 0.2);
 }
 
 .timeline-title {
@@ -2215,26 +2153,26 @@ section {
     border-radius: 1.25rem;
     font-size: 0.8rem;
     font-weight: 500;
-    border: 1px solid var(--border-color);
+    border: 1px solid #3b82f6;
     transition: all 0.3s ease;
 }
 
 .timeline-tag:hover {
-    background: rgba(99, 102, 241, 0.1);
-    border-color: var(--primary-color);
-    color: var(--primary-color);
+    background: rgba(37, 99, 235, 0.1);
+    border-color: #2563eb;
+    color: #2563eb;
     transform: translateY(-2px);
 }
 
 .future-tags .timeline-tag {
-    background: rgba(168, 85, 247, 0.1);
-    border-color: rgba(168, 85, 247, 0.2);
-    color: var(--secondary-color);
+    background: rgba(29, 78, 216, 0.1);
+    border-color: rgba(29, 78, 216, 0.2);
+    color: #1d4ed8;
 }
 
 .future-tags .timeline-tag:hover {
-    background: rgba(168, 85, 247, 0.2);
-    border-color: var(--secondary-color);
+    background: rgba(29, 78, 216, 0.2);
+    border-color: #1d4ed8;
     transform: translateY(-2px);
 }
 
@@ -2248,14 +2186,14 @@ section {
 .achievement-item {
     text-align: center;
     padding: 1rem;
-    background: rgba(245, 158, 11, 0.05);
-    border: 1px solid rgba(245, 158, 11, 0.2);
+    background: rgba(37, 99, 235, 0.05);
+    border: 1px solid rgba(37, 99, 235, 0.2);
     border-radius: 0.75rem;
     transition: all 0.3s ease;
 }
 
 .achievement-item:hover {
-    background: rgba(245, 158, 11, 0.1);
+    background: rgba(37, 99, 235, 0.1);
     transform: translateY(-3px);
 }
 
@@ -2263,7 +2201,7 @@ section {
     display: block;
     font-size: 1.5rem;
     font-weight: 800;
-    color: var(--accent-color);
+    color: #3b82f6;
     line-height: 1;
     margin-bottom: 0.25rem;
 }
