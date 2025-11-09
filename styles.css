@@ -16,6 +16,36 @@ body {
     color: #1a1a1a;
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
+    position: relative;
+}
+
+/* Decorative Corner Borders */
+body::before,
+body::after {
+    content: '';
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+/* Top-left corner */
+body::before {
+    top: 20px;
+    left: 20px;
+    width: 60px;
+    height: 60px;
+    border-top: 2px solid #e5e5e5;
+    border-left: 2px solid #e5e5e5;
+}
+
+/* Bottom-right corner */
+body::after {
+    bottom: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    border-bottom: 2px solid #e5e5e5;
+    border-right: 2px solid #e5e5e5;
 }
 
 /* Container */
@@ -23,6 +53,40 @@ body {
     max-width: 720px;
     margin: 0 auto;
     padding: 0 2rem;
+    position: relative;
+}
+
+/* Additional corner decorations */
+.hero::before,
+.hero::after,
+section::before,
+section::after {
+    content: '';
+    position: absolute;
+    pointer-events: none;
+    opacity: 0.3;
+}
+
+/* Top-right corner decorations for sections */
+.hero::before,
+section::before {
+    top: 20px;
+    right: 20px;
+    width: 30px;
+    height: 30px;
+    border-top: 1px solid #d0d0d0;
+    border-right: 1px solid #d0d0d0;
+}
+
+/* Bottom-left corner decorations for sections */
+.hero::after,
+section::after {
+    bottom: 20px;
+    left: 20px;
+    width: 30px;
+    height: 30px;
+    border-bottom: 1px solid #d0d0d0;
+    border-left: 1px solid #d0d0d0;
 }
 
 /* Navigation */
@@ -68,6 +132,7 @@ body {
 /* Hero Section */
 .hero {
     padding: 4rem 0 3rem;
+    position: relative;
 }
 
 .hero h1 {
@@ -93,6 +158,7 @@ body {
 section {
     padding: 3rem 0;
     border-top: 1px solid #e5e5e5;
+    position: relative;
 }
 
 section h2 {
@@ -247,6 +313,43 @@ section p {
     section h2 {
         font-size: 1.375rem;
     }
+
+    /* Adjust corner borders for mobile */
+    body::before,
+    body::after {
+        width: 40px;
+        height: 40px;
+    }
+
+    body::before {
+        top: 10px;
+        left: 10px;
+    }
+
+    body::after {
+        bottom: 10px;
+        right: 10px;
+    }
+
+    .hero::before,
+    .hero::after,
+    section::before,
+    section::after {
+        width: 20px;
+        height: 20px;
+    }
+
+    .hero::before,
+    section::before {
+        top: 10px;
+        right: 10px;
+    }
+
+    .hero::after,
+    section::after {
+        bottom: 10px;
+        left: 10px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -271,5 +374,19 @@ section p {
 
     section h2 {
         font-size: 1.25rem;
+    }
+
+    /* Further adjust corner borders for small mobile */
+    body::before,
+    body::after {
+        width: 30px;
+        height: 30px;
+    }
+
+    .hero::before,
+    .hero::after,
+    section::before,
+    section::after {
+        display: none; /* Hide section corners on very small screens */
     }
 }
