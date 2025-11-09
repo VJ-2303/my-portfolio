@@ -1,0 +1,5 @@
+*.old.css
+*.old.js
+.DS_Store
+node_modules/
+*.log
