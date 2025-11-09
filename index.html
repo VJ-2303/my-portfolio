@@ -59,123 +59,81 @@
     </script>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="nav">
-        <div class="container">
-            <a href="#home" class="nav-logo">Vanaraj P</a>
-            <ul class="nav-menu">
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <section id="home" class="hero">
+    <!-- Header -->
+    <header class="header">
         <div class="container">
             <h1>Vanaraj P</h1>
-            <p class="subtitle">Computer Science Student & Full-Stack Developer</p>
-            <p class="description">I build intelligent applications using AI, Machine Learning, and modern web technologies. Currently focused on React.js, Node.js, and conversational AI systems.</p>
+        </div>
+    </header>
+
+    <!-- Intro Section -->
+    <section class="intro">
+        <div class="container">
+            <p>I'm a computer science student who builds intelligent applications using AI, machine learning, and modern web technologies. I work with React.js, Node.js, and conversational AI systems.</p>
         </div>
     </section>
 
 
     <!-- Projects Section -->
-    <section id="projects" class="projects">
+    <section class="projects">
         <div class="container">
             <h2>Projects</h2>
             
-            <div class="project">
-                <h3><a href="https://vanaraj07-raq_chatbot.hf.space/" target="_blank" rel="noopener noreferrer">KCT College Assistant</a></h3>
-                <p>Intelligent conversational AI system using RAG architecture with Llama API for instant college-related query responses.</p>
-                <p class="tech">RAG Architecture · Python · Llama API · NLP</p>
-            </div>
+            <ul class="project-list">
+                <li>
+                    <a href="https://vanaraj07-raq_chatbot.hf.space/" target="_blank" rel="noopener noreferrer">KCT College Assistant</a>
+                    <p>Intelligent conversational AI system using RAG architecture with Llama API for instant college-related query responses.</p>
+                </li>
 
-            <div class="project">
-                <h3><a href="https://starlight-weather.netlify.app/" target="_blank" rel="noopener noreferrer">StarLight Weather</a></h3>
-                <p>Comprehensive weather application with real-time data, location services, and dynamic weather visualization.</p>
-                <p class="tech">React.js · OpenWeather API · CSS3</p>
-            </div>
+                <li>
+                    <a href="https://starlight-weather.netlify.app/" target="_blank" rel="noopener noreferrer">StarLight Weather</a>
+                    <p>Comprehensive weather application with real-time data, location services, and dynamic weather visualization.</p>
+                </li>
 
-            <div class="project">
-                <h3><a href="https://vjs-music-player.netlify.app/" target="_blank" rel="noopener noreferrer">ThinkBoard</a></h3>
-                <p>A modern, responsive note-taking application with an intuitive interface for creating, viewing, editing, and managing notes.</p>
-                <p class="tech">SpringBoot · React JS · MongoDB</p>
-            </div>
+                <li>
+                    <a href="https://vjs-music-player.netlify.app/" target="_blank" rel="noopener noreferrer">ThinkBoard</a>
+                    <p>A modern, responsive note-taking application with an intuitive interface for creating, viewing, editing, and managing notes.</p>
+                </li>
 
-            <div class="project">
-                <h3><a href="https://starlight-ai.netlify.app/" target="_blank" rel="noopener noreferrer">StarLight AI Assistant</a></h3>
-                <p>Advanced AI chatbot powered by Google's Gemini API with natural language understanding and contextual conversations.</p>
-                <p class="tech">React.js · Gemini API · NLP</p>
-            </div>
+                <li>
+                    <a href="https://starlight-ai.netlify.app/" target="_blank" rel="noopener noreferrer">StarLight AI Assistant</a>
+                    <p>Advanced AI chatbot powered by Google's Gemini API with natural language understanding and contextual conversations.</p>
+                </li>
 
-            <div class="project">
-                <h3><a href="https://starlight-elements.netlify.app/" target="_blank" rel="noopener noreferrer">SpendWise</a></h3>
-                <p>A React Native app built with Expo for tracking personal finances with income and expense management.</p>
-                <p class="tech">React Native · PostgreSQL · Clerk · Expo</p>
-            </div>
-            
-            <p class="more-link"><a href="https://github.com/Vanaraj10" target="_blank" rel="noopener noreferrer">View more projects on GitHub →</a></p>
+                <li>
+                    <a href="https://starlight-elements.netlify.app/" target="_blank" rel="noopener noreferrer">SpendWise</a>
+                    <p>A React Native app built with Expo for tracking personal finances with income and expense management.</p>
+                </li>
+            </ul>
         </div>
     </section>
 
 
     <!-- Skills Section -->
-    <section id="skills" class="skills">
+    <section class="skills">
         <div class="container">
             <h2>Skills</h2>
-            <div class="skills-list">
-                <div class="skill-group">
-                    <h3>Frontend</h3>
-                    <p>React.js, JavaScript ES6+, Tailwind CSS, React Native, HTML5, CSS3</p>
-                </div>
-                <div class="skill-group">
-                    <h3>Backend & Databases</h3>
-                    <p>Node.js, SpringBoot, MongoDB, PostgreSQL</p>
-                </div>
-                <div class="skill-group">
-                    <h3>Programming Languages</h3>
-                    <p>JavaScript, Python, C/C++, Java</p>
-                </div>
-                <div class="skill-group">
-                    <h3>AI & Tools</h3>
-                    <p>RAG Architecture, NLP, Git, GitHub, Cloud Deployment (Netlify, Vercel)</p>
-                </div>
-            </div>
+            <p>React.js, JavaScript, Node.js, Python, SpringBoot, MongoDB, PostgreSQL, C/C++, Java, Tailwind CSS, React Native, RAG Architecture, NLP, Git.</p>
         </div>
     </section>
     
     <!-- About Section -->
-    <section id="about" class="about">
+    <section class="about">
         <div class="container">
             <h2>About</h2>
             <p>I'm a Computer Science Engineering student passionate about building intelligent applications. I specialize in full-stack web development with React.js and Node.js, and have experience developing AI-powered chatbots using RAG architecture and various LLM APIs.</p>
-            <p>When I'm not coding, I'm exploring new technologies, solving problems on LeetCode, or contributing to open-source projects. I've deployed over 13 projects and continue to learn and grow in the ever-evolving tech landscape.</p>
+            <p>When I'm not coding, I'm exploring new technologies, solving problems on LeetCode, or contributing to open-source projects.</p>
         </div>
     </section>
 
 
     <!-- Contact Section -->
-    <section id="contact" class="contact">
+    <section class="contact">
         <div class="container">
             <h2>Contact</h2>
-            <p>I'm always open to discussing new projects, opportunities, or just having a chat about technology.</p>
-            <div class="contact-links">
-                <p>Email: <a href="mailto:vanaraj1018@gmail.com">vanaraj1018@gmail.com</a></p>
-                <p>GitHub: <a href="https://github.com/Vanaraj10" target="_blank" rel="noopener noreferrer">github.com/Vanaraj10</a></p>
-                <p>LinkedIn: <a href="https://www.linkedin.com/in/vanaraj-p-372405306" target="_blank" rel="noopener noreferrer">linkedin.com/in/vanaraj-p</a></p>
-            </div>
+            <p>You can email me at <a href="mailto:vanaraj1018@gmail.com">vanaraj1018@gmail.com</a>. I'm also on <a href="https://github.com/Vanaraj10" target="_blank" rel="noopener noreferrer">GitHub</a> and <a href="https://www.linkedin.com/in/vanaraj-p-372405306" target="_blank" rel="noopener noreferrer">LinkedIn</a>.</p>
         </div>
     </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <p>© 2025 Vanaraj P. All rights reserved.</p>
-        </div>
-    </footer>
 
     <!-- Scripts -->
     <script src="script.js"></script>
