@@ -1,0 +1,47 @@
+{
+  "name": "VJ Portfolio",
+  "short_name": "VJ",
+  "description": "Portfolio website of VJ, a Backend Engineer specializing in Golang, C, and high-performance systems",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#111111",
+  "theme_color": "#111111",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "en",
+  "icons": [
+    {
+      "src": "/favicon-16x16.png",
+      "sizes": "16x16",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "categories": ["portfolio", "developer", "software", "backend", "golang"],
+  "shortcuts": [
+    {
+      "name": "Projects",
+      "url": "/#projects-heading",
+      "description": "View VJ's recent software projects"
+    },
+    {
+      "name": "Skills",
+      "url": "/#skills-heading",
+      "description": "View VJ's technical skills"
+    }
+  ]
+}
