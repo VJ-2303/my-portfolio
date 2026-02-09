@@ -294,9 +294,17 @@
             padding: 0 1.5rem;
         }
 
-        /* Header section - reserve space to prevent CLS */
+        /* Header section - prevent CLS with containment */
         .header-section {
             margin-bottom: 3rem;
+            min-height: 320px;
+            contain: layout style;
+        }
+
+        @media (min-width: 768px) {
+            .header-section {
+                min-height: 200px;
+            }
         }
 
         .header-flex {
@@ -389,10 +397,18 @@
             color: white;
         }
 
-        /* Skills section - reserve minimum height */
+        /* Skills section - prevent CLS with containment and fixed dimensions */
         .skills-section {
             margin-bottom: 4rem;
-            min-height: 200px;
+            min-height: 280px;
+            contain: layout style;
+            content-visibility: visible;
+        }
+
+        @media (min-width: 768px) {
+            .skills-section {
+                min-height: 180px;
+            }
         }
 
         .section-heading {
