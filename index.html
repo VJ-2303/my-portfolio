@@ -1,44 +1,49 @@
 <!DOCTYPE html>
 <html lang="en" prefix="og: https://ogp.me/ns#">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <!-- Primary Meta Tags -->
     <title>VJ | Backend Engineer & Golang Developer | Portfolio</title>
     <meta name="title" content="VJ | Backend Engineer & Golang Developer | Portfolio">
-    <meta name="description" content="VJ is a Backend Engineer specializing in Golang, C, and high-performance systems. Experienced in building scalable APIs, microservices, and DevOps infrastructure. Based in Coimbatore, India.">
-    <meta name="keywords" content="VJ, Vanaraj, Backend Engineer, Golang Developer, Go Developer, C Programmer, DevOps, Software Engineer, API Development, Microservices, PostgreSQL, Docker, Coimbatore, India, Computer Science Student, Backend Development, RESTful APIs, Concurrency, Systems Programming">
+    <meta name="description"
+        content="VJ is a Backend Engineer specializing in Golang, C, and high-performance systems. Experienced in building scalable APIs, microservices, and DevOps infrastructure. Based in Coimbatore, India.">
+    <meta name="keywords"
+        content="VJ, Vanaraj, Backend Engineer, Golang Developer, Go Developer, C Programmer, DevOps, Software Engineer, API Development, Microservices, PostgreSQL, Docker, Coimbatore, India, Computer Science Student, Backend Development, RESTful APIs, Concurrency, Systems Programming">
     <meta name="author" content="VJ - Vanaraj P">
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <meta name="googlebot" content="index, follow">
     <meta name="bingbot" content="index, follow">
-    
+
     <!-- Canonical URL -->
     <link rel="canonical" href="https://vanaraj.me/">
-    
+
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://vanaraj.me/">
     <meta property="og:title" content="VJ | Backend Engineer & Golang Developer">
-    <meta property="og:description" content="Backend Engineer specializing in Golang, C, and high-performance systems. Building scalable APIs, microservices, and DevOps infrastructure.">
+    <meta property="og:description"
+        content="Backend Engineer specializing in Golang, C, and high-performance systems. Building scalable APIs, microservices, and DevOps infrastructure.">
     <meta property="og:image" content="https://vanaraj.me/me.jpeg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:image:alt" content="VJ - Backend Engineer Portfolio">
     <meta property="og:site_name" content="VJ Portfolio">
     <meta property="og:locale" content="en_US">
-    
+
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@vj_0x">
     <meta name="twitter:creator" content="@vj_0x">
     <meta name="twitter:url" content="https://vanaraj.me/">
     <meta name="twitter:title" content="VJ | Backend Engineer & Golang Developer">
-    <meta name="twitter:description" content="Backend Engineer specializing in Golang, C, and high-performance systems. Building scalable APIs, microservices, and DevOps infrastructure.">
+    <meta name="twitter:description"
+        content="Backend Engineer specializing in Golang, C, and high-performance systems. Building scalable APIs, microservices, and DevOps infrastructure.">
     <meta name="twitter:image" content="https://vanaraj.me/me.jpeg">
     <meta name="twitter:image:alt" content="VJ - Backend Engineer Portfolio">
-    
+
     <!-- Additional Meta Tags -->
     <meta name="theme-color" content="#111111">
     <meta name="msapplication-TileColor" content="#111111">
@@ -48,28 +53,66 @@
     <meta name="application-name" content="VJ Portfolio">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
-    
+
     <!-- Geographic Meta Tags -->
     <meta name="geo.region" content="IN-TN">
     <meta name="geo.placename" content="Coimbatore">
     <meta name="geo.position" content="11.0168;76.9558">
     <meta name="ICBM" content="11.0168, 76.9558">
-    
+
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="manifest" href="/manifest.json">
-    
-    <!-- Preload critical resources to fix render-blocking -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <!-- Preload the actual font file to prevent CLS -->
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- Preload the font file directly -->
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"></noscript>
-    
+    <link rel="preload" href="https://fonts.gstatic.com/s/inter/v18/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2"
+        as="font" type="font/woff2" crossorigin>
+
+    <!-- Inline the font-face to prevent render-blocking and CLS -->
+    <style>
+        /* Inline Inter font with font-display: optional to prevent layout shift */
+        @font-face {
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 400;
+            font-display: optional;
+            src: url(https://fonts.gstatic.com/s/inter/v18/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2) format('woff2');
+            unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+        }
+
+        @font-face {
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 500;
+            font-display: optional;
+            src: url(https://fonts.gstatic.com/s/inter/v18/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2) format('woff2');
+            unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+        }
+
+        @font-face {
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 600;
+            font-display: optional;
+            src: url(https://fonts.gstatic.com/s/inter/v18/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2) format('woff2');
+            unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+        }
+
+        /* Fallback font with adjusted metrics to match Inter */
+        @font-face {
+            font-family: 'Inter-fallback';
+            src: local('Arial');
+            size-adjust: 107%;
+            ascent-override: 90%;
+            descent-override: 22%;
+            line-gap-override: 0%;
+        }
+    </style>
+
     <!-- JSON-LD Structured Data for Person -->
     <script type="application/ld+json">
     {
@@ -113,7 +156,7 @@
         }
     }
     </script>
-    
+
     <!-- JSON-LD Structured Data for Website -->
     <script type="application/ld+json">
     {
@@ -133,7 +176,7 @@
         }
     }
     </script>
-    
+
     <!-- JSON-LD Structured Data for Projects (ItemList) -->
     <script type="application/ld+json">
     {
@@ -193,7 +236,7 @@
         ]
     }
     </script>
-    
+
     <!-- JSON-LD BreadcrumbList -->
     <script type="application/ld+json">
     {
@@ -221,7 +264,9 @@
             --border: #262626;
         }
 
-        *, *::before, *::after {
+        *,
+        *::before,
+        *::after {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
@@ -230,7 +275,7 @@
         body {
             background-color: var(--bg-primary);
             color: var(--text-primary);
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Inter', 'Inter-fallback', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
@@ -238,7 +283,9 @@
         }
 
         @media (min-width: 768px) {
-            body { padding: 6rem 0; }
+            body {
+                padding: 6rem 0;
+            }
         }
 
         .container-narrow {
@@ -301,7 +348,9 @@
         }
 
         @media (min-width: 768px) {
-            .heading-main { font-size: 2.25rem; }
+            .heading-main {
+                font-size: 2.25rem;
+            }
         }
 
         .intro-text {
@@ -446,7 +495,9 @@
         }
 
         @media (min-width: 768px) {
-            .project-tech { margin-top: 0; }
+            .project-tech {
+                margin-top: 0;
+            }
         }
 
         .project-desc {
@@ -486,7 +537,7 @@
         /* Link styles */
         .hover-link {
             text-decoration: none;
-            border-bottom: 1px solid rgba(255,255,255,0.2);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
             transition: border-color 0.2s;
         }
 
@@ -518,58 +569,84 @@
         }
     </style>
 </head>
+
 <body itemscope itemtype="https://schema.org/ProfilePage">
 
     <main class="container-narrow" role="main">
-        
+
         <!-- HEADER / INTRO -->
         <header class="header-section" itemscope itemtype="https://schema.org/Person" role="banner">
             <!-- Flex Container: Column on Mobile, Row on Desktop -->
             <div class="header-flex">
                 <!-- PROFILE PHOTO - Explicit dimensions prevent CLS -->
-                <img 
-                    src="me.jpeg" 
-                    alt="VJ - Backend Engineer and Golang Developer based in Coimbatore, India" 
-                    class="profile-img"
-                    itemprop="image"
-                    loading="eager"
-                    width="96"
-                    height="96"
-                    decoding="async"
-                    fetchpriority="high"
-                >
-                
+                <img src="me.jpeg" alt="VJ - Backend Engineer and Golang Developer based in Coimbatore, India"
+                    class="profile-img" itemprop="image" loading="eager" width="96" height="96" decoding="async"
+                    fetchpriority="high">
+
                 <h1 class="heading-main" itemprop="name">Hey, I'm <span itemprop="givenName">VJ</span> 👋</h1>
             </div>
             <div class="intro-text" itemprop="description">
                 <p>
-                    I'm VJ, a Computer Science student and aspiring <span class="text-white" itemprop="jobTitle">Backend Engineer</span>. While I appreciate a great user interface, my passion lies in the infrastructure that powers it. I am fascinated by how systems communicate and process data, focusing on high-performance logic, memory management, and <span class="text-white" itemprop="knowsAbout">Concurrency</span> using <span class="text-white" itemprop="knowsAbout">C</span> and <span class="text-white" itemprop="knowsAbout">Golang</span>.
+                    I'm VJ, a Computer Science student and aspiring <span class="text-white" itemprop="jobTitle">Backend
+                        Engineer</span>. While I appreciate a great user interface, my passion lies in the
+                    infrastructure that powers it. I am fascinated by how systems communicate and process data, focusing
+                    on high-performance logic, memory management, and <span class="text-white"
+                        itemprop="knowsAbout">Concurrency</span> using <span class="text-white"
+                        itemprop="knowsAbout">C</span> and <span class="text-white" itemprop="knowsAbout">Golang</span>.
                 </p>
                 <p>
-                    Currently, I am laying the foundation for a future in <span class="text-white" itemprop="knowsAbout">DevOps</span>. I am eager to explore the open-source ecosystem and am dedicated to building backend architectures that are scalable, reliable, and efficient.
+                    Currently, I am laying the foundation for a future in <span class="text-white"
+                        itemprop="knowsAbout">DevOps</span>. I am eager to explore the open-source ecosystem and am
+                    dedicated to building backend architectures that are scalable, reliable, and efficient.
                 </p>
             </div>
 
             <!-- SOCIAL ICONS -->
             <nav class="social-nav" aria-label="Social media links">
                 <!-- X / Twitter -->
-                <a href="https://x.com/vj_0x" target="_blank" class="social-icon" aria-label="Follow VJ on Twitter / X" rel="noopener noreferrer me" itemprop="sameAs">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4l11.733 16h4.267l-11.733 -16z"/><path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772"/></svg>
+                <a href="https://x.com/vj_0x" target="_blank" class="social-icon" aria-label="Follow VJ on Twitter / X"
+                    rel="noopener noreferrer me" itemprop="sameAs">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        aria-hidden="true">
+                        <path d="M4 4l11.733 16h4.267l-11.733 -16z" />
+                        <path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772" />
+                    </svg>
                 </a>
-                
+
                 <!-- GitHub -->
-                <a href="https://github.com/VJ-2303" target="_blank" class="social-icon" aria-label="View VJ's GitHub profile and projects" rel="noopener noreferrer me" itemprop="sameAs">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                <a href="https://github.com/VJ-2303" target="_blank" class="social-icon"
+                    aria-label="View VJ's GitHub profile and projects" rel="noopener noreferrer me" itemprop="sameAs">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        aria-hidden="true">
+                        <path
+                            d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
+                        </path>
+                    </svg>
                 </a>
-                
+
                 <!-- LinkedIn -->
-                <a href="https://linkedin.com/in/vanaraj-p-372405306" target="_blank" class="social-icon" aria-label="Connect with VJ on LinkedIn" rel="noopener noreferrer me" itemprop="sameAs">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                <a href="https://linkedin.com/in/vanaraj-p-372405306" target="_blank" class="social-icon"
+                    aria-label="Connect with VJ on LinkedIn" rel="noopener noreferrer me" itemprop="sameAs">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        aria-hidden="true">
+                        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                        <rect x="2" y="9" width="4" height="12"></rect>
+                        <circle cx="4" cy="4" r="2"></circle>
+                    </svg>
                 </a>
 
                 <!-- Email -->
-                <a href="mailto:vanaraj1018@gmail.com" class="social-icon" aria-label="Send email to VJ" itemprop="email">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                <a href="mailto:vanaraj1018@gmail.com" class="social-icon" aria-label="Send email to VJ"
+                    itemprop="email">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        aria-hidden="true">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                        <polyline points="22,6 12,13 2,6"></polyline>
+                    </svg>
                 </a>
             </nav>
         </header>
@@ -577,9 +654,9 @@
         <!-- SKILLS SECTION -->
         <section class="skills-section" aria-labelledby="skills-heading">
             <h2 id="skills-heading" class="section-heading">Technical Skills</h2>
-            
+
             <div class="skills-grid">
-                
+
                 <!-- Column 1 -->
                 <div class="skill-category">
                     <h3>Languages</h3>
@@ -626,13 +703,15 @@
 
                 <!-- Project: Ticket Booking (Go) -->
                 <article itemscope itemtype="https://schema.org/SoftwareSourceCode">
-                    <a href="https://github.com/VJ-2303/Ticket-Booking-Go" class="project-card" target="_blank" rel="noopener noreferrer" itemprop="codeRepository">
+                    <a href="https://github.com/VJ-2303/Ticket-Booking-Go" class="project-card" target="_blank"
+                        rel="noopener noreferrer" itemprop="codeRepository">
                         <div class="project-header">
                             <h3 class="project-title" itemprop="name">🎫 Ticket Booking (Go)</h3>
                             <span class="project-tech" itemprop="programmingLanguage">Go • JavaScript • HTML</span>
                         </div>
                         <p class="project-desc" itemprop="description">
-                            Full-stack ticket booking app with Go backend and JS/HTML frontend. Implements session management, secure booking flows, and RESTful APIs for events, users, and reservations.
+                            Full-stack ticket booking app with Go backend and JS/HTML frontend. Implements session
+                            management, secure booking flows, and RESTful APIs for events, users, and reservations.
                         </p>
                     </a>
                     <meta itemprop="author" content="VJ">
@@ -640,13 +719,15 @@
 
                 <!-- Project: Shorty (URL Shortener) -->
                 <article itemscope itemtype="https://schema.org/SoftwareSourceCode">
-                    <a href="https://github.com/VJ-2303/shorty-go" class="project-card" target="_blank" rel="noopener noreferrer" itemprop="codeRepository">
+                    <a href="https://github.com/VJ-2303/shorty-go" class="project-card" target="_blank"
+                        rel="noopener noreferrer" itemprop="codeRepository">
                         <div class="project-header">
                             <h3 class="project-title" itemprop="name">🔗 Shorty (URL Shortener)</h3>
                             <span class="project-tech" itemprop="programmingLanguage">Go • REST API • PostgreSQL</span>
                         </div>
                         <p class="project-desc" itemprop="description">
-                            Minimal, fast URL shortener service built in Go. Provides clean REST endpoints for creating, resolving, and tracking short links with persistent storage.
+                            Minimal, fast URL shortener service built in Go. Provides clean REST endpoints for creating,
+                            resolving, and tracking short links with persistent storage.
                         </p>
                     </a>
                     <meta itemprop="author" content="VJ">
@@ -654,13 +735,15 @@
 
                 <!-- Project: Snippet Box -->
                 <article itemscope itemtype="https://schema.org/SoftwareSourceCode">
-                    <a href="https://github.com/VJ-2303/Snippet-Box" class="project-card" target="_blank" rel="noopener noreferrer" itemprop="codeRepository">
+                    <a href="https://github.com/VJ-2303/Snippet-Box" class="project-card" target="_blank"
+                        rel="noopener noreferrer" itemprop="codeRepository">
                         <div class="project-header">
                             <h3 class="project-title" itemprop="name">📦 Snippet Box</h3>
                             <span class="project-tech" itemprop="programmingLanguage">Go • SSR • SQL</span>
                         </div>
                         <p class="project-desc" itemprop="description">
-                            Web app for storing and sharing code snippets. Features user authentication, server-side rendering in Go, and a clean UI with CSS and light JS interactivity.
+                            Web app for storing and sharing code snippets. Features user authentication, server-side
+                            rendering in Go, and a clean UI with CSS and light JS interactivity.
                         </p>
                     </a>
                     <meta itemprop="author" content="VJ">
@@ -668,13 +751,15 @@
 
                 <!-- Project: Interpreter (Go) -->
                 <article itemscope itemtype="https://schema.org/SoftwareSourceCode">
-                    <a href="https://github.com/VJ-2303/interpreter" class="project-card" target="_blank" rel="noopener noreferrer" itemprop="codeRepository">
+                    <a href="https://github.com/VJ-2303/interpreter" class="project-card" target="_blank"
+                        rel="noopener noreferrer" itemprop="codeRepository">
                         <div class="project-header">
                             <h3 class="project-title" itemprop="name">🧮 Interpreter (Go)</h3>
                             <span class="project-tech" itemprop="programmingLanguage">Go • Parsing • AST</span>
                         </div>
                         <p class="project-desc" itemprop="description">
-                            A toy language interpreter written in Go. Includes lexer, parser, and evaluator components showcasing AST construction and expression execution.
+                            A toy language interpreter written in Go. Includes lexer, parser, and evaluator components
+                            showcasing AST construction and expression execution.
                         </p>
                     </a>
                     <meta itemprop="author" content="VJ">
@@ -683,7 +768,8 @@
             </div>
 
             <div class="view-all">
-                <a href="https://github.com/vj-2303" rel="noopener noreferrer" target="_blank" aria-label="View all VJ's projects on GitHub">
+                <a href="https://github.com/vj-2303" rel="noopener noreferrer" target="_blank"
+                    aria-label="View all VJ's projects on GitHub">
                     View all projects <span aria-hidden="true">→</span>
                 </a>
             </div>
@@ -691,8 +777,11 @@
 
         <!-- FOOTER -->
         <footer role="contentinfo">
-            <span>© <time datetime="2025">2025</time> <span itemscope itemtype="https://schema.org/Person"><span itemprop="name">VJ</span></span></span>
-            <span itemscope itemtype="https://schema.org/Place"><span itemprop="address" itemscope itemtype="https://schema.org/PostalAddress"><span itemprop="addressLocality">Coimbatore</span>, <span itemprop="addressCountry">IN</span></span></span>
+            <span>© <time datetime="2025">2025</time> <span itemscope itemtype="https://schema.org/Person"><span
+                        itemprop="name">VJ</span></span></span>
+            <span itemscope itemtype="https://schema.org/Place"><span itemprop="address" itemscope
+                    itemtype="https://schema.org/PostalAddress"><span itemprop="addressLocality">Coimbatore</span>,
+                    <span itemprop="addressCountry">IN</span></span></span>
         </footer>
 
     </main>
@@ -700,12 +789,20 @@
     <!-- Hidden SEO-friendly content for accessibility -->
     <aside class="sr-only" aria-hidden="true">
         <h2>About VJ - Backend Engineer</h2>
-        <p>VJ (Vanaraj P) is a skilled Backend Engineer and Computer Science student based in Coimbatore, Tamil Nadu, India. Specializing in Golang (Go) and C programming, VJ builds high-performance, scalable backend systems. With expertise in RESTful API development, PostgreSQL databases, Docker containerization, and DevOps practices, VJ is passionate about system architecture, concurrency, and memory management. Currently exploring the open-source ecosystem and dedicated to building reliable, efficient backend infrastructures.</p>
+        <p>VJ (Vanaraj P) is a skilled Backend Engineer and Computer Science student based in Coimbatore, Tamil Nadu,
+            India. Specializing in Golang (Go) and C programming, VJ builds high-performance, scalable backend systems.
+            With expertise in RESTful API development, PostgreSQL databases, Docker containerization, and DevOps
+            practices, VJ is passionate about system architecture, concurrency, and memory management. Currently
+            exploring the open-source ecosystem and dedicated to building reliable, efficient backend infrastructures.
+        </p>
         <h3>Contact Information</h3>
         <p>Email: vanaraj1018@gmail.com | GitHub: VJ-2303 | Twitter: @vj_0x | LinkedIn: vanaraj-p-372405306</p>
         <h3>Skills and Technologies</h3>
-        <p>Golang, Go, C, C++, Python, SQL, PostgreSQL, REST APIs, RESTful Services, Microservices, Docker, Kubernetes, Git, GitHub, Linux, Bash, Shell Scripting, Concurrency, Parallel Programming, Memory Management, System Programming, Backend Development, Server-Side Development, DevOps, CI/CD, Software Engineering</p>
+        <p>Golang, Go, C, C++, Python, SQL, PostgreSQL, REST APIs, RESTful Services, Microservices, Docker, Kubernetes,
+            Git, GitHub, Linux, Bash, Shell Scripting, Concurrency, Parallel Programming, Memory Management, System
+            Programming, Backend Development, Server-Side Development, DevOps, CI/CD, Software Engineering</p>
     </aside>
 
 </body>
+
 </html>
