@@ -21,17 +21,25 @@
       "type": "image/png"
     },
     {
-      "src": "/android-chrome-192x192.png",
+      "src": "/me.jpeg",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/jpeg",
+      "purpose": "any"
     },
     {
-      "src": "/android-chrome-512x512.png",
+      "src": "/me.jpeg",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/jpeg",
+      "purpose": "any"
     }
   ],
-  "categories": ["portfolio", "developer", "software", "backend", "golang"],
+  "categories": [
+    "portfolio",
+    "developer",
+    "software",
+    "backend",
+    "golang"
+  ],
   "shortcuts": [
     {
       "name": "Projects",

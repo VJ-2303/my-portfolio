@@ -55,21 +55,20 @@
     <meta name="geo.position" content="11.0168;76.9558">
     <meta name="ICBM" content="11.0168, 76.9558">
     
-    <!-- Favicon (add these files to your project) -->
+    <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="manifest" href="/manifest.json">
     
-    <!-- Preconnect for Performance -->
-    <link rel="preconnect" href="https://cdn.tailwindcss.com">
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Preload critical resources to fix render-blocking -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
-    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Preload the font file directly -->
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"></noscript>
     
     <!-- JSON-LD Structured Data for Person -->
     <script type="application/ld+json">
@@ -210,101 +209,349 @@
         ]
     }
     </script>
+
+    <!-- Critical CSS Inlined to prevent render-blocking -->
     <style>
-        /* The Conor Dewey Palette - Dark Mode Edition */
+        /* Critical CSS - Inlined for immediate rendering */
         :root {
             --bg-primary: #111111;
             --text-primary: #EDEDED;
             --text-secondary: #A1A1A1;
-            --accent: #3B82F6; /* Subtle Blue */
+            --accent: #3B82F6;
             --border: #262626;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         body {
             background-color: var(--bg-primary);
             color: var(--text-primary);
-            font-family: 'Inter', sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            padding: 3rem 0;
         }
 
-        /* Custom link underline animation */
+        @media (min-width: 768px) {
+            body { padding: 6rem 0; }
+        }
+
+        .container-narrow {
+            max-width: 672px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Header section - reserve space to prevent CLS */
+        .header-section {
+            margin-bottom: 3rem;
+        }
+
+        .header-flex {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .header-flex {
+                flex-direction: row;
+                align-items: center;
+            }
+        }
+
+        /* Profile image with explicit dimensions to prevent CLS */
+        .profile-img {
+            width: 96px;
+            height: 96px;
+            min-width: 96px;
+            min-height: 96px;
+            aspect-ratio: 1 / 1;
+            border-radius: 50%;
+            border: 1px solid var(--border);
+            filter: grayscale(100%);
+            transition: filter 0.3s ease;
+            object-fit: cover;
+        }
+
+        @media (min-width: 768px) {
+            .profile-img {
+                width: 80px;
+                height: 80px;
+                min-width: 80px;
+                min-height: 80px;
+            }
+        }
+
+        .profile-img:hover {
+            filter: grayscale(0%);
+        }
+
+        .heading-main {
+            font-size: 1.875rem;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+            line-height: 1.2;
+        }
+
+        @media (min-width: 768px) {
+            .heading-main { font-size: 2.25rem; }
+        }
+
+        .intro-text {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+        }
+
+        .intro-text p {
+            margin-bottom: 1rem;
+        }
+
+        .intro-text p:last-child {
+            margin-bottom: 0;
+        }
+
+        .text-white {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        /* Social icons */
+        .social-nav {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 2rem;
+            color: #777;
+        }
+
+        .social-icon {
+            transition: transform 0.2s ease, color 0.2s ease;
+            color: inherit;
+        }
+
+        .social-icon:hover {
+            transform: translateY(-2px);
+            color: white;
+        }
+
+        /* Skills section - reserve minimum height */
+        .skills-section {
+            margin-bottom: 4rem;
+            min-height: 200px;
+        }
+
+        .section-heading {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .skills-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1rem;
+            }
+        }
+
+        .skill-category h3 {
+            font-size: 0.75rem;
+            font-family: ui-monospace, monospace;
+            color: #555;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.75rem;
+        }
+
+        .skill-list {
+            list-style: none;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        .skill-list li {
+            margin-bottom: 0.5rem;
+        }
+
+        .skill-list .primary {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        /* Divider */
+        .divider {
+            border: 0;
+            border-top: 1px solid var(--border);
+            margin-bottom: 3rem;
+        }
+
+        /* Projects section */
+        .projects-section {
+            min-height: 400px;
+        }
+
+        .project-list {
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+        }
+
+        .project-card {
+            display: block;
+            text-decoration: none;
+            color: inherit;
+            transition: opacity 0.2s ease;
+        }
+
+        .project-card:hover {
+            opacity: 0.8;
+        }
+
+        .project-header {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 0.25rem;
+        }
+
+        @media (min-width: 768px) {
+            .project-header {
+                flex-direction: row;
+                align-items: baseline;
+                justify-content: space-between;
+            }
+        }
+
+        .project-title {
+            font-size: 1.125rem;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .project-tech {
+            font-size: 0.875rem;
+            color: #555;
+            font-family: ui-monospace, monospace;
+            margin-top: 0.25rem;
+        }
+
+        @media (min-width: 768px) {
+            .project-tech { margin-top: 0; }
+        }
+
+        .project-desc {
+            color: var(--text-secondary);
+            line-height: 1.625;
+        }
+
+        .view-all {
+            margin-top: 3rem;
+        }
+
+        .view-all a {
+            font-size: 0.875rem;
+            color: #555;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            transition: color 0.2s ease;
+        }
+
+        .view-all a:hover {
+            color: white;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 6rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            font-size: 0.875rem;
+            color: #555;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* Link styles */
         .hover-link {
             text-decoration: none;
             border-bottom: 1px solid rgba(255,255,255,0.2);
             transition: border-color 0.2s;
         }
+
         .hover-link:hover {
             border-color: var(--text-primary);
         }
 
-        /* The specific narrow layout Conor uses */
-        .container-narrow {
-            max-width: 672px; /* pro-blog width */
-            margin: 0 auto;
-            padding: 0 1.5rem; /* Safe padding for mobile edges */
-        }
-
-        /* Hiding scrollbar for cleaner look */
+        /* Scrollbar */
         ::-webkit-scrollbar {
             width: 8px;
         }
+
         ::-webkit-scrollbar-thumb {
             background: #333;
             border-radius: 4px;
         }
-        
-        /* Profile Image Hover Effect */
-        .profile-img {
-            filter: grayscale(100%);
-            transition: filter 0.3s ease;
-        }
-        .profile-img:hover {
-            filter: grayscale(0%);
-        }
 
-        /* Icon Hover Transition */
-        .social-icon {
-            transition: transform 0.2s ease, color 0.2s ease;
-        }
-        .social-icon:hover {
-            transform: translateY(-2px);
-            color: white;
+        /* Screen reader only */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
         }
     </style>
 </head>
-<body class="py-12 md:py-24" itemscope itemtype="https://schema.org/ProfilePage">
+<body itemscope itemtype="https://schema.org/ProfilePage">
 
     <main class="container-narrow" role="main">
         
         <!-- HEADER / INTRO -->
-        <header class="mb-12" itemscope itemtype="https://schema.org/Person" role="banner">
+        <header class="header-section" itemscope itemtype="https://schema.org/Person" role="banner">
             <!-- Flex Container: Column on Mobile, Row on Desktop -->
-            <div class="flex flex-col md:flex-row md:items-center gap-6 mb-8">
-                <!-- PROFILE PHOTO -->
+            <div class="header-flex">
+                <!-- PROFILE PHOTO - Explicit dimensions prevent CLS -->
                 <img 
                     src="me.jpeg" 
                     alt="VJ - Backend Engineer and Golang Developer based in Coimbatore, India" 
-                    class="w-24 h-24 md:w-20 md:h-20 rounded-full profile-img border border-[#262626]"
+                    class="profile-img"
                     itemprop="image"
                     loading="eager"
                     width="96"
                     height="96"
+                    decoding="async"
+                    fetchpriority="high"
                 >
                 
-                <h1 class="text-3xl md:text-4xl font-bold tracking-tight" itemprop="name">Hey, I'm <span itemprop="givenName">VJ</span> 👋</h1>
+                <h1 class="heading-main" itemprop="name">Hey, I'm <span itemprop="givenName">VJ</span> 👋</h1>
             </div>
-<div class="text-lg text-[#A1A1A1] space-y-4" itemprop="description">
-    <p>
-        I'm VJ, a Computer Science student and aspiring <span class="text-white font-medium" itemprop="jobTitle">Backend Engineer</span>. While I appreciate a great user interface, my passion lies in the infrastructure that powers it. I am fascinated by how systems communicate and process data, focusing on high-performance logic, memory management, and <span class="text-white font-medium" itemprop="knowsAbout">Concurrency</span> using <span class="text-white font-medium" itemprop="knowsAbout">C</span> and <span class="text-white font-medium" itemprop="knowsAbout">Golang</span>.
-    </p>
-    <p>
-        Currently, I am laying the foundation for a future in <span class="text-white font-medium" itemprop="knowsAbout">DevOps</span>. I am eager to explore the open-source ecosystem and am dedicated to building backend architectures that are scalable, reliable, and efficient.
-    </p>
-</div>
+            <div class="intro-text" itemprop="description">
+                <p>
+                    I'm VJ, a Computer Science student and aspiring <span class="text-white" itemprop="jobTitle">Backend Engineer</span>. While I appreciate a great user interface, my passion lies in the infrastructure that powers it. I am fascinated by how systems communicate and process data, focusing on high-performance logic, memory management, and <span class="text-white" itemprop="knowsAbout">Concurrency</span> using <span class="text-white" itemprop="knowsAbout">C</span> and <span class="text-white" itemprop="knowsAbout">Golang</span>.
+                </p>
+                <p>
+                    Currently, I am laying the foundation for a future in <span class="text-white" itemprop="knowsAbout">DevOps</span>. I am eager to explore the open-source ecosystem and am dedicated to building backend architectures that are scalable, reliable, and efficient.
+                </p>
+            </div>
 
             <!-- SOCIAL ICONS -->
-            <nav class="flex gap-6 mt-8 text-[#777]" aria-label="Social media links">
+            <nav class="social-nav" aria-label="Social media links">
                 <!-- X / Twitter -->
                 <a href="https://x.com/vj_0x" target="_blank" class="social-icon" aria-label="Follow VJ on Twitter / X" rel="noopener noreferrer me" itemprop="sameAs">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4l11.733 16h4.267l-11.733 -16z"/><path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772"/></svg>
@@ -327,18 +574,17 @@
             </nav>
         </header>
 
-        <!-- SKILLS SECTION (Redesigned: Clean & Typographic) -->
-        <section class="mb-16" aria-labelledby="skills-heading">
-            <h2 id="skills-heading" class="text-xl font-bold mb-8">Technical Skills</h2>
+        <!-- SKILLS SECTION -->
+        <section class="skills-section" aria-labelledby="skills-heading">
+            <h2 id="skills-heading" class="section-heading">Technical Skills</h2>
             
-            <!-- Removed the 'bg-card' box. Now it's just clean columns. -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-4">
+            <div class="skills-grid">
                 
                 <!-- Column 1 -->
-                <div class="space-y-3">
-                    <h3 class="text-xs font-mono text-[#555] uppercase tracking-widest">Languages</h3>
-                    <ul class="text-sm text-[#A1A1A1] space-y-2" aria-label="Programming languages">
-                        <li class="text-white font-medium">Golang (Go)</li>
+                <div class="skill-category">
+                    <h3>Languages</h3>
+                    <ul class="skill-list" aria-label="Programming languages">
+                        <li class="primary">Golang (Go)</li>
                         <li>C/C++</li>
                         <li>SQL</li>
                         <li>Python</li>
@@ -346,9 +592,9 @@
                 </div>
 
                 <!-- Column 2 -->
-                <div class="space-y-3">
-                    <h3 class="text-xs font-mono text-[#555] uppercase tracking-widest">Backend Engineering</h3>
-                    <ul class="text-sm text-[#A1A1A1] space-y-2" aria-label="Backend engineering skills">
+                <div class="skill-category">
+                    <h3>Backend Engineering</h3>
+                    <ul class="skill-list" aria-label="Backend engineering skills">
                         <li>PostgreSQL</li>
                         <li>Concurrency</li>
                         <li>RESTful APIs</li>
@@ -357,9 +603,9 @@
                 </div>
 
                 <!-- Column 3 -->
-                <div class="space-y-3">
-                    <h3 class="text-xs font-mono text-[#555] uppercase tracking-widest">Tools</h3>
-                    <ul class="text-sm text-[#A1A1A1] space-y-2" aria-label="Development tools">
+                <div class="skill-category">
+                    <h3>Tools</h3>
+                    <ul class="skill-list" aria-label="Development tools">
                         <li>Git & GitHub</li>
                         <li>Docker</li>
                         <li>Postman</li>
@@ -370,81 +616,81 @@
         </section>
 
         <!-- DIVIDER -->
-        <hr class="border-[#262626] mb-12" aria-hidden="true" />
+        <hr class="divider" aria-hidden="true">
 
         <!-- RECENT PROJECTS -->
-        <section aria-labelledby="projects-heading">
-            <h2 id="projects-heading" class="text-xl font-bold mb-8">Recent Projects</h2>
+        <section class="projects-section" aria-labelledby="projects-heading">
+            <h2 id="projects-heading" class="section-heading">Recent Projects</h2>
 
-            <div class="space-y-10">
+            <div class="project-list">
 
-  <!-- Project: Ticket Booking (Go) -->
-  <article class="group" itemscope itemtype="https://schema.org/SoftwareSourceCode">
-    <a href="https://github.com/VJ-2303/Ticket-Booking-Go" class="block hover:opacity-80 transition-opacity" target="_blank" rel="noopener noreferrer" itemprop="codeRepository">
-      <div class="flex flex-col md:flex-row md:items-baseline justify-between mb-1">
-        <h3 class="text-lg font-medium text-white" itemprop="name">🎫 Ticket Booking (Go)</h3>
-        <span class="text-sm text-[#555] font-mono mt-1 md:mt-0" itemprop="programmingLanguage">Go • JavaScript • HTML</span>
-      </div>
-      <p class="text-[#A1A1A1] leading-relaxed" itemprop="description">
-        Full-stack ticket booking app with Go backend and JS/HTML frontend. Implements session management, secure booking flows, and RESTful APIs for events, users, and reservations.
-      </p>
-    </a>
-    <meta itemprop="author" content="VJ">
-  </article>
+                <!-- Project: Ticket Booking (Go) -->
+                <article itemscope itemtype="https://schema.org/SoftwareSourceCode">
+                    <a href="https://github.com/VJ-2303/Ticket-Booking-Go" class="project-card" target="_blank" rel="noopener noreferrer" itemprop="codeRepository">
+                        <div class="project-header">
+                            <h3 class="project-title" itemprop="name">🎫 Ticket Booking (Go)</h3>
+                            <span class="project-tech" itemprop="programmingLanguage">Go • JavaScript • HTML</span>
+                        </div>
+                        <p class="project-desc" itemprop="description">
+                            Full-stack ticket booking app with Go backend and JS/HTML frontend. Implements session management, secure booking flows, and RESTful APIs for events, users, and reservations.
+                        </p>
+                    </a>
+                    <meta itemprop="author" content="VJ">
+                </article>
 
-  <!-- Project: Shorty (URL Shortener) -->
-  <article class="group" itemscope itemtype="https://schema.org/SoftwareSourceCode">
-    <a href="https://github.com/VJ-2303/shorty-go" class="block hover:opacity-80 transition-opacity" target="_blank" rel="noopener noreferrer" itemprop="codeRepository">
-      <div class="flex flex-col md:flex-row md:items-baseline justify-between mb-1">
-        <h3 class="text-lg font-medium text-white" itemprop="name">🔗 Shorty (URL Shortener)</h3>
-        <span class="text-sm text-[#555] font-mono mt-1 md:mt-0" itemprop="programmingLanguage">Go • REST API • PostgreSQL</span>
-      </div>
-      <p class="text-[#A1A1A1] leading-relaxed" itemprop="description">
-        Minimal, fast URL shortener service built in Go. Provides clean REST endpoints for creating, resolving, and tracking short links with persistent storage.
-      </p>
-    </a>
-    <meta itemprop="author" content="VJ">
-  </article>
+                <!-- Project: Shorty (URL Shortener) -->
+                <article itemscope itemtype="https://schema.org/SoftwareSourceCode">
+                    <a href="https://github.com/VJ-2303/shorty-go" class="project-card" target="_blank" rel="noopener noreferrer" itemprop="codeRepository">
+                        <div class="project-header">
+                            <h3 class="project-title" itemprop="name">🔗 Shorty (URL Shortener)</h3>
+                            <span class="project-tech" itemprop="programmingLanguage">Go • REST API • PostgreSQL</span>
+                        </div>
+                        <p class="project-desc" itemprop="description">
+                            Minimal, fast URL shortener service built in Go. Provides clean REST endpoints for creating, resolving, and tracking short links with persistent storage.
+                        </p>
+                    </a>
+                    <meta itemprop="author" content="VJ">
+                </article>
 
-  <!-- Project: Snippet Box -->
-  <article class="group" itemscope itemtype="https://schema.org/SoftwareSourceCode">
-    <a href="https://github.com/VJ-2303/Snippet-Box" class="block hover:opacity-80 transition-opacity" target="_blank" rel="noopener noreferrer" itemprop="codeRepository">
-      <div class="flex flex-col md:flex-row md:items-baseline justify-between mb-1">
-        <h3 class="text-lg font-medium text-white" itemprop="name">📦 Snippet Box</h3>
-        <span class="text-sm text-[#555] font-mono mt-1 md:mt-0" itemprop="programmingLanguage">Go • SSR • SQL</span>
-      </div>
-      <p class="text-[#A1A1A1] leading-relaxed" itemprop="description">
-        Web app for storing and sharing code snippets. Features user authentication, server-side rendering in Go, and a clean UI with CSS and light JS interactivity.
-      </p>
-    </a>
-    <meta itemprop="author" content="VJ">
-  </article>
+                <!-- Project: Snippet Box -->
+                <article itemscope itemtype="https://schema.org/SoftwareSourceCode">
+                    <a href="https://github.com/VJ-2303/Snippet-Box" class="project-card" target="_blank" rel="noopener noreferrer" itemprop="codeRepository">
+                        <div class="project-header">
+                            <h3 class="project-title" itemprop="name">📦 Snippet Box</h3>
+                            <span class="project-tech" itemprop="programmingLanguage">Go • SSR • SQL</span>
+                        </div>
+                        <p class="project-desc" itemprop="description">
+                            Web app for storing and sharing code snippets. Features user authentication, server-side rendering in Go, and a clean UI with CSS and light JS interactivity.
+                        </p>
+                    </a>
+                    <meta itemprop="author" content="VJ">
+                </article>
 
-  <!-- Project: Interpreter (Go) -->
-  <article class="group" itemscope itemtype="https://schema.org/SoftwareSourceCode">
-    <a href="https://github.com/VJ-2303/interpreter" class="block hover:opacity-80 transition-opacity" target="_blank" rel="noopener noreferrer" itemprop="codeRepository">
-      <div class="flex flex-col md:flex-row md:items-baseline justify-between mb-1">
-        <h3 class="text-lg font-medium text-white" itemprop="name">🧮 Interpreter (Go)</h3>
-        <span class="text-sm text-[#555] font-mono mt-1 md:mt-0" itemprop="programmingLanguage">Go • Parsing • AST</span>
-      </div>
-      <p class="text-[#A1A1A1] leading-relaxed" itemprop="description">
-        A toy language interpreter written in Go. Includes lexer, parser, and evaluator components showcasing AST construction and expression execution.
-      </p>
-    </a>
-    <meta itemprop="author" content="VJ">
-  </article>
+                <!-- Project: Interpreter (Go) -->
+                <article itemscope itemtype="https://schema.org/SoftwareSourceCode">
+                    <a href="https://github.com/VJ-2303/interpreter" class="project-card" target="_blank" rel="noopener noreferrer" itemprop="codeRepository">
+                        <div class="project-header">
+                            <h3 class="project-title" itemprop="name">🧮 Interpreter (Go)</h3>
+                            <span class="project-tech" itemprop="programmingLanguage">Go • Parsing • AST</span>
+                        </div>
+                        <p class="project-desc" itemprop="description">
+                            A toy language interpreter written in Go. Includes lexer, parser, and evaluator components showcasing AST construction and expression execution.
+                        </p>
+                    </a>
+                    <meta itemprop="author" content="VJ">
+                </article>
 
-</div>
+            </div>
 
-            <div class="mt-12">
-                <a href="https://github.com/vj-2303" class="text-sm text-[#555] hover:text-white transition-colors flex items-center gap-1" rel="noopener noreferrer" target="_blank" aria-label="View all VJ's projects on GitHub">
-                    View all projects <span class="text-xs" aria-hidden="true">→</span>
+            <div class="view-all">
+                <a href="https://github.com/vj-2303" rel="noopener noreferrer" target="_blank" aria-label="View all VJ's projects on GitHub">
+                    View all projects <span aria-hidden="true">→</span>
                 </a>
             </div>
         </section>
 
         <!-- FOOTER -->
-        <footer class="mt-24 pt-8 border-t border-[#262626] text-sm text-[#555] flex justify-between" role="contentinfo">
+        <footer role="contentinfo">
             <span>© <time datetime="2025">2025</time> <span itemscope itemtype="https://schema.org/Person"><span itemprop="name">VJ</span></span></span>
             <span itemscope itemtype="https://schema.org/Place"><span itemprop="address" itemscope itemtype="https://schema.org/PostalAddress"><span itemprop="addressLocality">Coimbatore</span>, <span itemprop="addressCountry">IN</span></span></span>
         </footer>
