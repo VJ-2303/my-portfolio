@@ -45,8 +45,8 @@
     <meta name="twitter:image:alt" content="VJ - Backend Engineer Portfolio">
 
     <!-- Additional Meta Tags -->
-    <meta name="theme-color" content="#111111">
-    <meta name="msapplication-TileColor" content="#111111">
+    <meta name="theme-color" content="#0a0a0a">
+    <meta name="msapplication-TileColor" content="#0a0a0a">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="VJ Portfolio">
@@ -67,53 +67,881 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="manifest" href="/manifest.json">
 
-    <!-- Preload the actual font file to prevent CLS -->
+    <!-- Preload fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" href="https://fonts.gstatic.com/s/inter/v18/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2"
-        as="font" type="font/woff2" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 
-    <!-- Inline the font-face to prevent render-blocking and CLS -->
     <style>
-        /* Inline Inter font with font-display: optional to prevent layout shift */
-        @font-face {
-            font-family: 'Inter';
-            font-style: normal;
-            font-weight: 400;
-            font-display: optional;
-            src: url(https://fonts.gstatic.com/s/inter/v18/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2) format('woff2');
-            unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+        /* ============================================
+           CUSTOM PROPERTIES
+           ============================================ */
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #0f0f0f;
+            --text-primary: #ffffff;
+            --text-secondary: #888888;
+            --text-muted: #444444;
+            --accent: #ffffff;
+            --border-light: rgba(255, 255, 255, 0.08);
+            --border-medium: rgba(255, 255, 255, 0.15);
+            --border-heavy: rgba(255, 255, 255, 0.25);
+            
+            --font-display: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-mono: 'JetBrains Mono', 'SF Mono', Consolas, monospace;
+            
+            --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
+            --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
         }
 
-        @font-face {
-            font-family: 'Inter';
-            font-style: normal;
+        /* ============================================
+           GRAIN TEXTURE OVERLAY
+           ============================================ */
+        .grain-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+        }
+
+        /* ============================================
+           RESET & BASE
+           ============================================ */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: var(--font-display);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+            cursor: default;
+        }
+
+        /* ============================================
+           CUSTOM CURSOR
+           ============================================ */
+        .cursor-dot {
+            position: fixed;
+            width: 8px;
+            height: 8px;
+            background: var(--text-primary);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10000;
+            transform: translate(-50%, -50%);
+            transition: width 0.3s var(--ease-out-expo), height 0.3s var(--ease-out-expo), opacity 0.3s ease;
+            mix-blend-mode: difference;
+        }
+
+        .cursor-dot.hovering {
+            width: 40px;
+            height: 40px;
+            opacity: 0.5;
+        }
+
+        /* ============================================
+           SELECTION & SCROLLBAR
+           ============================================ */
+        ::selection {
+            background: var(--text-primary);
+            color: var(--bg-primary);
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-primary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-medium);
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--border-heavy);
+        }
+
+        /* ============================================
+           TYPOGRAPHY
+           ============================================ */
+        h1, h2, h3, h4, h5, h6 {
             font-weight: 500;
-            font-display: optional;
-            src: url(https://fonts.gstatic.com/s/inter/v18/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2) format('woff2');
-            unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
         }
 
-        @font-face {
-            font-family: 'Inter';
-            font-style: normal;
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        .mono {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        .text-muted {
+            color: var(--text-muted);
+        }
+
+        .text-secondary {
+            color: var(--text-secondary);
+        }
+
+        /* ============================================
+           LAYOUT
+           ============================================ */
+        .wrapper {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .wrapper {
+                padding: 3rem 4rem;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .wrapper {
+                padding: 4rem 6rem;
+            }
+        }
+
+        .container {
+            max-width: 1400px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        /* ============================================
+           NAVIGATION
+           ============================================ */
+        .nav-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 4rem;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .nav-logo {
+            font-family: var(--font-mono);
+            font-size: 0.875rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+        }
+
+        .nav-status {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            background: #22c55e;
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        /* ============================================
+           HERO SECTION
+           ============================================ */
+        .hero {
+            padding: 8rem 0;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 4rem;
+        }
+
+        @media (min-width: 1024px) {
+            .hero {
+                grid-template-columns: 1.2fr 1fr;
+                gap: 6rem;
+                align-items: center;
+            }
+        }
+
+        .hero-content {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .hero-label {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .hero-label::before {
+            content: '';
+            width: 24px;
+            height: 1px;
+            background: var(--border-medium);
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 6vw, 5rem);
             font-weight: 600;
-            font-display: optional;
-            src: url(https://fonts.gstatic.com/s/inter/v18/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2) format('woff2');
-            unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+            line-height: 1;
+            letter-spacing: -0.03em;
         }
 
-        /* Fallback font with adjusted metrics to match Inter */
-        @font-face {
-            font-family: 'Inter-fallback';
-            src: local('Arial');
-            size-adjust: 107%;
-            ascent-override: 90%;
-            descent-override: 22%;
-            line-gap-override: 0%;
+        .hero-title .highlight {
+            display: block;
+            color: var(--text-secondary);
+            font-weight: 300;
+            margin-top: 0.5rem;
+        }
+
+        .hero-description {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            max-width: 540px;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.875rem 1.5rem;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            border: 1px solid var(--border-medium);
+            background: transparent;
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: all 0.3s var(--ease-out-expo);
+        }
+
+        .btn:hover {
+            border-color: var(--border-heavy);
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .btn-primary {
+            background: var(--text-primary);
+            color: var(--bg-primary);
+            border-color: var(--text-primary);
+        }
+
+        .btn-primary:hover {
+            background: var(--text-secondary);
+            border-color: var(--text-secondary);
+        }
+
+        /* Hero Image */
+        .hero-image-wrapper {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero-image-frame {
+            position: relative;
+            width: 280px;
+            height: 280px;
+            border: 1px solid var(--border-light);
+            padding: 1rem;
+        }
+
+        @media (min-width: 768px) {
+            .hero-image-frame {
+                width: 360px;
+                height: 360px;
+            }
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(100%);
+            transition: filter 0.5s var(--ease-out-expo);
+        }
+
+        .hero-image-frame:hover .hero-image {
+            filter: grayscale(0%);
+        }
+
+        .hero-image-corner {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border: 1px solid var(--border-heavy);
+        }
+
+        .hero-image-corner.tl { top: -1px; left: -1px; border-right: none; border-bottom: none; }
+        .hero-image-corner.tr { top: -1px; right: -1px; border-left: none; border-bottom: none; }
+        .hero-image-corner.bl { bottom: -1px; left: -1px; border-right: none; border-top: none; }
+        .hero-image-corner.br { bottom: -1px; right: -1px; border-left: none; border-top: none; }
+
+        /* ============================================
+           SOCIAL LINKS
+           ============================================ */
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            border: 1px solid var(--border-light);
+            border-radius: 0;
+            color: var(--text-secondary);
+            transition: all 0.3s var(--ease-out-expo);
+        }
+
+        .social-link:hover {
+            border-color: var(--border-heavy);
+            color: var(--text-primary);
+            transform: translateY(-2px);
+        }
+
+        .social-link svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        /* ============================================
+           SECTION STYLES
+           ============================================ */
+        .section {
+            padding: 6rem 0;
+            border-top: 1px solid var(--border-light);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 500;
+        }
+
+        .section-number {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        /* ============================================
+           SKILLS GRID
+           ============================================ */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-card {
+            padding: 2rem;
+            border: 1px solid var(--border-light);
+            transition: all 0.3s var(--ease-out-expo);
+        }
+
+        .skill-card:hover {
+            border-color: var(--border-medium);
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .skill-card-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .skill-card-icon {
+            font-size: 1.25rem;
+        }
+
+        .skill-card-title {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        .skill-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .skill-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9375rem;
+            color: var(--text-secondary);
+        }
+
+        .skill-item.primary {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .skill-item::before {
+            content: '→';
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        /* ============================================
+           PROJECTS SECTION
+           ============================================ */
+        .projects-list {
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+        }
+
+        .project-card {
+            display: block;
+            group: project;
+        }
+
+        .project-card-link {
+            display: block;
+            padding: 2.5rem;
+            border: 1px solid var(--border-light);
+            transition: all 0.4s var(--ease-out-expo);
+        }
+
+        .project-card-link:hover {
+            border-color: var(--border-heavy);
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .project-meta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .project-number {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .project-tech {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .project-title {
+            font-size: 1.5rem;
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+        }
+
+        .project-description {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            font-size: 0.9375rem;
+        }
+
+        .project-footer {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            transition: color 0.3s ease;
+        }
+
+        .project-card-link:hover .project-footer {
+            color: var(--text-primary);
+        }
+
+        /* ============================================
+           FOOTER
+           ============================================ */
+        .footer {
+            margin-top: auto;
+            padding-top: 4rem;
+            border-top: 1px solid var(--border-light);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-text {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .footer-location {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        /* ============================================
+           ANIMATIONS
+           ============================================ */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s var(--ease-out-expo) forwards;
+        }
+
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+        .delay-4 { animation-delay: 0.4s; }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ============================================
+           SCREEN READER ONLY
+           ============================================ */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
         }
     </style>
+</head>
 
-    <!-- JSON-LD Structured Data for Person -->
+<body itemscope itemtype="https://schema.org/ProfilePage">
+    <!-- Grain Overlay -->
+    <div class="grain-overlay" aria-hidden="true"></div>
+    
+    <!-- Custom Cursor -->
+    <div class="cursor-dot" id="cursor" aria-hidden="true"></div>
+
+    <main class="wrapper" role="main">
+        <div class="container">
+            
+            <!-- Navigation -->
+            <header class="nav-header">
+                <span class="nav-logo">VJ.</span>
+                <div class="nav-status">
+                    <span class="status-dot"></span>
+                    <span>Available for work</span>
+                </div>
+            </header>
+
+            <!-- Hero Section -->
+            <section class="hero">
+                <div class="hero-content">
+                    <span class="hero-label fade-in">Backend Engineer</span>
+                    
+                    <h1 class="hero-title fade-in delay-1">
+                        Building systems
+                        <span class="highlight">that scale</span>
+                    </h1>
+                    
+                    <p class="hero-description fade-in delay-2">
+                        I'm <strong>VJ</strong>, a Computer Science student passionate about 
+                        <span class="text-white">backend engineering</span>, 
+                        <span class="text-white">high-performance systems</span>, and 
+                        <span class="text-white">concurrency</span>. 
+                        Specializing in Golang and C, I build scalable APIs and robust infrastructure.
+                    </p>
+                    
+                    <div class="hero-actions fade-in delay-3">
+                        <a href="#projects" class="btn btn-primary">View Projects →</a>
+                        <a href="mailto:vanaraj1018@gmail.com" class="btn">Contact</a>
+                    </div>
+                    
+                    <div class="social-links fade-in delay-4">
+                        <a href="https://x.com/vj_0x" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Twitter/X">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M4 4l11.733 16h4.267l-11.733 -16z" />
+                                <path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772" />
+                            </svg>
+                        </a>
+                        <a href="https://github.com/VJ-2303" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="GitHub">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+                            </svg>
+                        </a>
+                        <a href="https://linkedin.com/in/vanaraj-p-372405306" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="LinkedIn">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                                <rect x="2" y="9" width="4" height="12"/>
+                                <circle cx="4" cy="4" r="2"/>
+                            </svg>
+                        </a>
+                        <a href="mailto:vanaraj1018@gmail.com" class="social-link" aria-label="Email">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                <polyline points="22,6 12,13 2,6"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="hero-image-wrapper fade-in delay-3">
+                    <div class="hero-image-frame">
+                        <img src="me.jpeg" alt="VJ - Backend Engineer" class="hero-image" loading="eager" width="360" height="360" decoding="async" fetchpriority="high">
+                        <span class="hero-image-corner tl"></span>
+                        <span class="hero-image-corner tr"></span>
+                        <span class="hero-image-corner bl"></span>
+                        <span class="hero-image-corner br"></span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Skills Section -->
+            <section class="section" id="skills" aria-labelledby="skills-heading">
+                <div class="section-header">
+                    <h2 class="section-title" id="skills-heading">Technical Arsenal</h2>
+                    <span class="section-number">01</span>
+                </div>
+                
+                <div class="skills-grid">
+                    <div class="skill-card">
+                        <div class="skill-card-header">
+                            <span class="skill-card-icon">⚡</span>
+                            <h3 class="skill-card-title">Languages</h3>
+                        </div>
+                        <ul class="skill-list">
+                            <li class="skill-item primary">Golang (Go)</li>
+                            <li class="skill-item">C/C++</li>
+                            <li class="skill-item">SQL</li>
+                            <li class="skill-item">Python</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="skill-card">
+                        <div class="skill-card-header">
+                            <span class="skill-card-icon">🔧</span>
+                            <h3 class="skill-card-title">Backend Engineering</h3>
+                        </div>
+                        <ul class="skill-list">
+                            <li class="skill-item primary">PostgreSQL</li>
+                            <li class="skill-item">Concurrency Patterns</li>
+                            <li class="skill-item">RESTful APIs</li>
+                            <li class="skill-item">Linux / Bash</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="skill-card">
+                        <div class="skill-card-header">
+                            <span class="skill-card-icon">🛠️</span>
+                            <h3 class="skill-card-title">Tools & DevOps</h3>
+                        </div>
+                        <ul class="skill-list">
+                            <li class="skill-item primary">Git & GitHub</li>
+                            <li class="skill-item">Docker</li>
+                            <li class="skill-item">Postman</li>
+                            <li class="skill-item">CI/CD Pipelines</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Projects Section -->
+            <section class="section" id="projects" aria-labelledby="projects-heading">
+                <div class="section-header">
+                    <h2 class="section-title" id="projects-heading">Selected Work</h2>
+                    <span class="section-number">02</span>
+                </div>
+                
+                <div class="projects-list">
+                    <article class="project-card" itemscope itemtype="https://schema.org/SoftwareSourceCode">
+                        <a href="https://github.com/VJ-2303/Ticket-Booking-Go" class="project-card-link" target="_blank" rel="noopener noreferrer" itemprop="codeRepository">
+                            <div class="project-meta">
+                                <span class="project-number">001</span>
+                                <span class="project-tech" itemprop="programmingLanguage">Go • JavaScript • HTML</span>
+                            </div>
+                            <h3 class="project-title" itemprop="name">🎫 Ticket Booking System</h3>
+                            <p class="project-description" itemprop="description">
+                                Full-stack ticket booking application with Go backend and JS/HTML frontend. 
+                                Implements session management, secure booking flows, and RESTful APIs for events, users, and reservations.
+                            </p>
+                            <div class="project-footer">
+                                View Project <span aria-hidden="true">↗</span>
+                            </div>
+                        </a>
+                        <meta itemprop="author" content="VJ">
+                    </article>
+
+                    <article class="project-card" itemscope itemtype="https://schema.org/SoftwareSourceCode">
+                        <a href="https://github.com/VJ-2303/shorty-go" class="project-card-link" target="_blank" rel="noopener noreferrer" itemprop="codeRepository">
+                            <div class="project-meta">
+                                <span class="project-number">002</span>
+                                <span class="project-tech" itemprop="programmingLanguage">Go • REST API • PostgreSQL</span>
+                            </div>
+                            <h3 class="project-title" itemprop="name">🔗 Shorty URL Shortener</h3>
+                            <p class="project-description" itemprop="description">
+                                Minimal, high-performance URL shortener service built in Go. 
+                                Provides clean REST endpoints for creating, resolving, and tracking short links with persistent storage.
+                            </p>
+                            <div class="project-footer">
+                                View Project <span aria-hidden="true">↗</span>
+                            </div>
+                        </a>
+                        <meta itemprop="author" content="VJ">
+                    </article>
+
+                    <article class="project-card" itemscope itemtype="https://schema.org/SoftwareSourceCode">
+                        <a href="https://github.com/VJ-2303/Snippet-Box" class="project-card-link" target="_blank" rel="noopener noreferrer" itemprop="codeRepository">
+                            <div class="project-meta">
+                                <span class="project-number">003</span>
+                                <span class="project-tech" itemprop="programmingLanguage">Go • SSR • SQL</span>
+                            </div>
+                            <h3 class="project-title" itemprop="name">📦 Snippet Box</h3>
+                            <p class="project-description" itemprop="description">
+                                Web application for storing and sharing code snippets. 
+                                Features user authentication, server-side rendering in Go, and a clean UI with CSS and light JS interactivity.
+                            </p>
+                            <div class="project-footer">
+                                View Project <span aria-hidden="true">↗</span>
+                            </div>
+                        </a>
+                        <meta itemprop="author" content="VJ">
+                    </article>
+
+                    <article class="project-card" itemscope itemtype="https://schema.org/SoftwareSourceCode">
+                        <a href="https://github.com/VJ-2303/interpreter" class="project-card-link" target="_blank" rel="noopener noreferrer" itemprop="codeRepository">
+                            <div class="project-meta">
+                                <span class="project-number">004</span>
+                                <span class="project-tech" itemprop="programmingLanguage">Go • Parsing • AST</span>
+                            </div>
+                            <h3 class="project-title" itemprop="name">🧮 Language Interpreter</h3>
+                            <p class="project-description" itemprop="description">
+                                A toy language interpreter written in Go. 
+                                Includes lexer, parser, and evaluator components showcasing AST construction and expression execution.
+                            </p>
+                            <div class="project-footer">
+                                View Project <span aria-hidden="true">↗</span>
+                            </div>
+                        </a>
+                        <meta itemprop="author" content="VJ">
+                    </article>
+                </div>
+                
+                <div style="margin-top: 3rem;">
+                    <a href="https://github.com/vj-2303" rel="noopener noreferrer" target="_blank" class="btn">
+                        View All Projects on GitHub →
+                    </a>
+                </div>
+            </section>
+
+            <!-- Footer -->
+            <footer class="footer" role="contentinfo">
+                <span class="footer-text">© <time datetime="2025">2025</time> VJ — Vanaraj P</span>
+                <span class="footer-location">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                        <circle cx="12" cy="10" r="3"/>
+                    </svg>
+                    Coimbatore, IN
+                </span>
+            </footer>
+
+        </div>
+    </main>
+
+    <!-- Hidden SEO Content -->
+    <aside class="sr-only" aria-hidden="true">
+        <h2>About VJ - Backend Engineer</h2>
+        <p>VJ (Vanaraj P) is a skilled Backend Engineer and Computer Science student based in Coimbatore, Tamil Nadu, India. Specializing in Golang (Go) and C programming, VJ builds high-performance, scalable backend systems. With expertise in RESTful API development, PostgreSQL databases, Docker containerization, and DevOps practices, VJ is passionate about system architecture, concurrency, and memory management.</p>
+        <h3>Contact Information</h3>
+        <p>Email: vanaraj1018@gmail.com | GitHub: VJ-2303 | Twitter: @vj_0x | LinkedIn: vanaraj-p-372405306</p>
+        <h3>Skills and Technologies</h3>
+        <p>Golang, Go, C, C++, Python, SQL, PostgreSQL, REST APIs, Microservices, Docker, Git, GitHub, Linux, Bash, Concurrency, System Programming, Backend Development</p>
+    </aside>
+
+    <!-- JSON-LD Structured Data -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
@@ -136,689 +964,46 @@
             "https://linkedin.com/in/vanaraj-p-372405306",
             "https://x.com/vj_0x"
         ],
-        "knowsAbout": [
-            "Golang",
-            "Go Programming",
-            "C Programming",
-            "Backend Development",
-            "RESTful APIs",
-            "PostgreSQL",
-            "Docker",
-            "DevOps",
-            "Concurrency",
-            "Microservices",
-            "Linux",
-            "Git"
-        ],
-        "alumniOf": {
-            "@type": "CollegeOrUniversity",
-            "name": "Computer Science Program"
-        }
+        "knowsAbout": ["Golang", "Go Programming", "C Programming", "Backend Development", "RESTful APIs", "PostgreSQL", "Docker", "DevOps", "Concurrency", "Microservices", "Linux", "Git"]
     }
     </script>
 
-    <!-- JSON-LD Structured Data for Website -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "WebSite",
-        "name": "VJ Portfolio",
-        "url": "https://vanaraj.me",
-        "description": "Portfolio website of VJ, a Backend Engineer specializing in Golang and high-performance systems",
-        "author": {
-            "@type": "Person",
-            "name": "VJ"
-        },
-        "potentialAction": {
-            "@type": "SearchAction",
-            "target": "https://vanaraj.me/?q={search_term_string}",
-            "query-input": "required name=search_term_string"
-        }
-    }
+    <script>
+        // Custom Cursor Logic
+        const cursor = document.getElementById('cursor');
+        const interactiveElements = document.querySelectorAll('a, button, .project-card-link, .skill-card, .social-link');
+
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        interactiveElements.forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.classList.add('hovering'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('hovering'));
+        });
+
+        // Smooth reveal on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.skill-card, .project-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s cubic-bezier(0.19, 1, 0.22, 1), transform 0.6s cubic-bezier(0.19, 1, 0.22, 1)';
+            observer.observe(el);
+        });
     </script>
-
-    <!-- JSON-LD Structured Data for Projects (ItemList) -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "ItemList",
-        "name": "VJ's Software Projects",
-        "description": "Open source projects by VJ",
-        "itemListElement": [
-            {
-                "@type": "ListItem",
-                "position": 1,
-                "item": {
-                    "@type": "SoftwareSourceCode",
-                    "name": "Ticket Booking (Go)",
-                    "description": "Full-stack ticket booking app with Go backend and JS/HTML frontend. Implements session management, secure booking flows, and RESTful APIs.",
-                    "programmingLanguage": ["Go", "JavaScript", "HTML"],
-                    "codeRepository": "https://github.com/VJ-2303/Ticket-Booking-Go",
-                    "author": {"@type": "Person", "name": "VJ"}
-                }
-            },
-            {
-                "@type": "ListItem",
-                "position": 2,
-                "item": {
-                    "@type": "SoftwareSourceCode",
-                    "name": "Shorty (URL Shortener)",
-                    "description": "Minimal, fast URL shortener service built in Go with REST endpoints for creating, resolving, and tracking short links.",
-                    "programmingLanguage": ["Go"],
-                    "codeRepository": "https://github.com/VJ-2303/shorty-go",
-                    "author": {"@type": "Person", "name": "VJ"}
-                }
-            },
-            {
-                "@type": "ListItem",
-                "position": 3,
-                "item": {
-                    "@type": "SoftwareSourceCode",
-                    "name": "Snippet Box",
-                    "description": "Web app for storing and sharing code snippets with user authentication and server-side rendering in Go.",
-                    "programmingLanguage": ["Go", "SQL"],
-                    "codeRepository": "https://github.com/VJ-2303/Snippet-Box",
-                    "author": {"@type": "Person", "name": "VJ"}
-                }
-            },
-            {
-                "@type": "ListItem",
-                "position": 4,
-                "item": {
-                    "@type": "SoftwareSourceCode",
-                    "name": "Interpreter (Go)",
-                    "description": "A toy language interpreter written in Go with lexer, parser, and evaluator components.",
-                    "programmingLanguage": ["Go"],
-                    "codeRepository": "https://github.com/VJ-2303/interpreter",
-                    "author": {"@type": "Person", "name": "VJ"}
-                }
-            }
-        ]
-    }
-    </script>
-
-    <!-- JSON-LD BreadcrumbList -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "BreadcrumbList",
-        "itemListElement": [
-            {
-                "@type": "ListItem",
-                "position": 1,
-                "name": "Home",
-                "item": "https://vanaraj.me/"
-            }
-        ]
-    }
-    </script>
-
-    <!-- Critical CSS Inlined to prevent render-blocking -->
-    <style>
-        /* Critical CSS - Inlined for immediate rendering */
-        :root {
-            --bg-primary: #111111;
-            --text-primary: #EDEDED;
-            --text-secondary: #A1A1A1;
-            --accent: #3B82F6;
-            --border: #262626;
-        }
-
-        *,
-        *::before,
-        *::after {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            background-color: var(--bg-primary);
-            color: var(--text-primary);
-            font-family: 'Inter', 'Inter-fallback', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            line-height: 1.6;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            padding: 3rem 0;
-        }
-
-        @media (min-width: 768px) {
-            body {
-                padding: 6rem 0;
-            }
-        }
-
-        .container-narrow {
-            max-width: 672px;
-            margin: 0 auto;
-            padding: 0 1.5rem;
-        }
-
-        /* Header section - prevent CLS with containment */
-        .header-section {
-            margin-bottom: 3rem;
-            min-height: 320px;
-            contain: layout style;
-        }
-
-        @media (min-width: 768px) {
-            .header-section {
-                min-height: 200px;
-            }
-        }
-
-        .header-flex {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        @media (min-width: 768px) {
-            .header-flex {
-                flex-direction: row;
-                align-items: center;
-            }
-        }
-
-        /* Profile image with explicit dimensions to prevent CLS */
-        .profile-img {
-            width: 96px;
-            height: 96px;
-            min-width: 96px;
-            min-height: 96px;
-            aspect-ratio: 1 / 1;
-            border-radius: 50%;
-            border: 1px solid var(--border);
-            filter: grayscale(100%);
-            transition: filter 0.3s ease;
-            object-fit: cover;
-        }
-
-        @media (min-width: 768px) {
-            .profile-img {
-                width: 80px;
-                height: 80px;
-                min-width: 80px;
-                min-height: 80px;
-            }
-        }
-
-        .profile-img:hover {
-            filter: grayscale(0%);
-        }
-
-        .heading-main {
-            font-size: 1.875rem;
-            font-weight: 700;
-            letter-spacing: -0.025em;
-            line-height: 1.2;
-        }
-
-        @media (min-width: 768px) {
-            .heading-main {
-                font-size: 2.25rem;
-            }
-        }
-
-        .intro-text {
-            font-size: 1.125rem;
-            color: var(--text-secondary);
-        }
-
-        .intro-text p {
-            margin-bottom: 1rem;
-        }
-
-        .intro-text p:last-child {
-            margin-bottom: 0;
-        }
-
-        .text-white {
-            color: var(--text-primary);
-            font-weight: 500;
-        }
-
-        /* Social icons */
-        .social-nav {
-            display: flex;
-            gap: 1.5rem;
-            margin-top: 2rem;
-            color: #777;
-        }
-
-        .social-icon {
-            transition: transform 0.2s ease, color 0.2s ease;
-            color: inherit;
-        }
-
-        .social-icon:hover {
-            transform: translateY(-2px);
-            color: white;
-        }
-
-        /* Skills section - prevent CLS with containment and fixed dimensions */
-        .skills-section {
-            margin-bottom: 4rem;
-            min-height: 280px;
-            contain: layout style;
-            content-visibility: visible;
-        }
-
-        @media (min-width: 768px) {
-            .skills-section {
-                min-height: 180px;
-            }
-        }
-
-        .section-heading {
-            font-size: 1.25rem;
-            font-weight: 700;
-            margin-bottom: 2rem;
-        }
-
-        .skills-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 2rem;
-        }
-
-        @media (min-width: 768px) {
-            .skills-grid {
-                grid-template-columns: repeat(3, 1fr);
-                gap: 1rem;
-            }
-        }
-
-        .skill-category h3 {
-            font-size: 0.75rem;
-            font-family: ui-monospace, monospace;
-            color: #555;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            margin-bottom: 0.75rem;
-        }
-
-        .skill-list {
-            list-style: none;
-            font-size: 0.875rem;
-            color: var(--text-secondary);
-        }
-
-        .skill-list li {
-            margin-bottom: 0.5rem;
-        }
-
-        .skill-list .primary {
-            color: var(--text-primary);
-            font-weight: 500;
-        }
-
-        /* Divider */
-        .divider {
-            border: 0;
-            border-top: 1px solid var(--border);
-            margin-bottom: 3rem;
-        }
-
-        /* Projects section */
-        .projects-section {
-            min-height: 400px;
-        }
-
-        .project-list {
-            display: flex;
-            flex-direction: column;
-            gap: 2.5rem;
-        }
-
-        .project-card {
-            display: block;
-            text-decoration: none;
-            color: inherit;
-            transition: opacity 0.2s ease;
-        }
-
-        .project-card:hover {
-            opacity: 0.8;
-        }
-
-        .project-header {
-            display: flex;
-            flex-direction: column;
-            margin-bottom: 0.25rem;
-        }
-
-        @media (min-width: 768px) {
-            .project-header {
-                flex-direction: row;
-                align-items: baseline;
-                justify-content: space-between;
-            }
-        }
-
-        .project-title {
-            font-size: 1.125rem;
-            font-weight: 500;
-            color: var(--text-primary);
-        }
-
-        .project-tech {
-            font-size: 0.875rem;
-            color: #555;
-            font-family: ui-monospace, monospace;
-            margin-top: 0.25rem;
-        }
-
-        @media (min-width: 768px) {
-            .project-tech {
-                margin-top: 0;
-            }
-        }
-
-        .project-desc {
-            color: var(--text-secondary);
-            line-height: 1.625;
-        }
-
-        .view-all {
-            margin-top: 3rem;
-        }
-
-        .view-all a {
-            font-size: 0.875rem;
-            color: #555;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.25rem;
-            transition: color 0.2s ease;
-        }
-
-        .view-all a:hover {
-            color: white;
-        }
-
-        /* Footer */
-        footer {
-            margin-top: 6rem;
-            padding-top: 2rem;
-            border-top: 1px solid var(--border);
-            font-size: 0.875rem;
-            color: #555;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        /* Link styles */
-        .hover-link {
-            text-decoration: none;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-            transition: border-color 0.2s;
-        }
-
-        .hover-link:hover {
-            border-color: var(--text-primary);
-        }
-
-        /* Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: #333;
-            border-radius: 4px;
-        }
-
-        /* Screen reader only */
-        .sr-only {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            white-space: nowrap;
-            border: 0;
-        }
-    </style>
-</head>
-
-<body itemscope itemtype="https://schema.org/ProfilePage">
-
-    <main class="container-narrow" role="main">
-
-        <!-- HEADER / INTRO -->
-        <header class="header-section" itemscope itemtype="https://schema.org/Person" role="banner">
-            <!-- Flex Container: Column on Mobile, Row on Desktop -->
-            <div class="header-flex">
-                <!-- PROFILE PHOTO - Explicit dimensions prevent CLS -->
-                <img src="me.jpeg" alt="VJ - Backend Engineer and Golang Developer based in Coimbatore, India"
-                    class="profile-img" itemprop="image" loading="eager" width="96" height="96" decoding="async"
-                    fetchpriority="high">
-
-                <h1 class="heading-main" itemprop="name">Hey, I'm <span itemprop="givenName">VJ</span> 👋</h1>
-            </div>
-            <div class="intro-text" itemprop="description">
-                <p>
-                    I'm VJ, a Computer Science student and aspiring <span class="text-white" itemprop="jobTitle">Backend
-                        Engineer</span>. While I appreciate a great user interface, my passion lies in the
-                    infrastructure that powers it. I am fascinated by how systems communicate and process data, focusing
-                    on high-performance logic, memory management, and <span class="text-white"
-                        itemprop="knowsAbout">Concurrency</span> using <span class="text-white"
-                        itemprop="knowsAbout">C</span> and <span class="text-white" itemprop="knowsAbout">Golang</span>.
-                </p>
-                <p>
-                    Currently, I am laying the foundation for a future in <span class="text-white"
-                        itemprop="knowsAbout">DevOps</span>. I am eager to explore the open-source ecosystem and am
-                    dedicated to building backend architectures that are scalable, reliable, and efficient.
-                </p>
-            </div>
-
-            <!-- SOCIAL ICONS -->
-            <nav class="social-nav" aria-label="Social media links">
-                <!-- X / Twitter -->
-                <a href="https://x.com/vj_0x" target="_blank" class="social-icon" aria-label="Follow VJ on Twitter / X"
-                    rel="noopener noreferrer me" itemprop="sameAs">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                        aria-hidden="true">
-                        <path d="M4 4l11.733 16h4.267l-11.733 -16z" />
-                        <path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772" />
-                    </svg>
-                </a>
-
-                <!-- GitHub -->
-                <a href="https://github.com/VJ-2303" target="_blank" class="social-icon"
-                    aria-label="View VJ's GitHub profile and projects" rel="noopener noreferrer me" itemprop="sameAs">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                        aria-hidden="true">
-                        <path
-                            d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
-                        </path>
-                    </svg>
-                </a>
-
-                <!-- LinkedIn -->
-                <a href="https://linkedin.com/in/vanaraj-p-372405306" target="_blank" class="social-icon"
-                    aria-label="Connect with VJ on LinkedIn" rel="noopener noreferrer me" itemprop="sameAs">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                        aria-hidden="true">
-                        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
-                        <rect x="2" y="9" width="4" height="12"></rect>
-                        <circle cx="4" cy="4" r="2"></circle>
-                    </svg>
-                </a>
-
-                <!-- Email -->
-                <a href="mailto:vanaraj1018@gmail.com" class="social-icon" aria-label="Send email to VJ"
-                    itemprop="email">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                        aria-hidden="true">
-                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                        <polyline points="22,6 12,13 2,6"></polyline>
-                    </svg>
-                </a>
-            </nav>
-        </header>
-
-        <!-- SKILLS SECTION -->
-        <section class="skills-section" aria-labelledby="skills-heading">
-            <h2 id="skills-heading" class="section-heading">Technical Skills</h2>
-
-            <div class="skills-grid">
-
-                <!-- Column 1 -->
-                <div class="skill-category">
-                    <h3>Languages</h3>
-                    <ul class="skill-list" aria-label="Programming languages">
-                        <li class="primary">Golang (Go)</li>
-                        <li>C/C++</li>
-                        <li>SQL</li>
-                        <li>Python</li>
-                    </ul>
-                </div>
-
-                <!-- Column 2 -->
-                <div class="skill-category">
-                    <h3>Backend Engineering</h3>
-                    <ul class="skill-list" aria-label="Backend engineering skills">
-                        <li>PostgreSQL</li>
-                        <li>Concurrency</li>
-                        <li>RESTful APIs</li>
-                        <li>Linux / Bash</li>
-                    </ul>
-                </div>
-
-                <!-- Column 3 -->
-                <div class="skill-category">
-                    <h3>Tools</h3>
-                    <ul class="skill-list" aria-label="Development tools">
-                        <li>Git & GitHub</li>
-                        <li>Docker</li>
-                        <li>Postman</li>
-                        <li>Linux / Bash</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <!-- DIVIDER -->
-        <hr class="divider" aria-hidden="true">
-
-        <!-- RECENT PROJECTS -->
-        <section class="projects-section" aria-labelledby="projects-heading">
-            <h2 id="projects-heading" class="section-heading">Recent Projects</h2>
-
-            <div class="project-list">
-
-                <!-- Project: Ticket Booking (Go) -->
-                <article itemscope itemtype="https://schema.org/SoftwareSourceCode">
-                    <a href="https://github.com/VJ-2303/Ticket-Booking-Go" class="project-card" target="_blank"
-                        rel="noopener noreferrer" itemprop="codeRepository">
-                        <div class="project-header">
-                            <h3 class="project-title" itemprop="name">🎫 Ticket Booking (Go)</h3>
-                            <span class="project-tech" itemprop="programmingLanguage">Go • JavaScript • HTML</span>
-                        </div>
-                        <p class="project-desc" itemprop="description">
-                            Full-stack ticket booking app with Go backend and JS/HTML frontend. Implements session
-                            management, secure booking flows, and RESTful APIs for events, users, and reservations.
-                        </p>
-                    </a>
-                    <meta itemprop="author" content="VJ">
-                </article>
-
-                <!-- Project: Shorty (URL Shortener) -->
-                <article itemscope itemtype="https://schema.org/SoftwareSourceCode">
-                    <a href="https://github.com/VJ-2303/shorty-go" class="project-card" target="_blank"
-                        rel="noopener noreferrer" itemprop="codeRepository">
-                        <div class="project-header">
-                            <h3 class="project-title" itemprop="name">🔗 Shorty (URL Shortener)</h3>
-                            <span class="project-tech" itemprop="programmingLanguage">Go • REST API • PostgreSQL</span>
-                        </div>
-                        <p class="project-desc" itemprop="description">
-                            Minimal, fast URL shortener service built in Go. Provides clean REST endpoints for creating,
-                            resolving, and tracking short links with persistent storage.
-                        </p>
-                    </a>
-                    <meta itemprop="author" content="VJ">
-                </article>
-
-                <!-- Project: Snippet Box -->
-                <article itemscope itemtype="https://schema.org/SoftwareSourceCode">
-                    <a href="https://github.com/VJ-2303/Snippet-Box" class="project-card" target="_blank"
-                        rel="noopener noreferrer" itemprop="codeRepository">
-                        <div class="project-header">
-                            <h3 class="project-title" itemprop="name">📦 Snippet Box</h3>
-                            <span class="project-tech" itemprop="programmingLanguage">Go • SSR • SQL</span>
-                        </div>
-                        <p class="project-desc" itemprop="description">
-                            Web app for storing and sharing code snippets. Features user authentication, server-side
-                            rendering in Go, and a clean UI with CSS and light JS interactivity.
-                        </p>
-                    </a>
-                    <meta itemprop="author" content="VJ">
-                </article>
-
-                <!-- Project: Interpreter (Go) -->
-                <article itemscope itemtype="https://schema.org/SoftwareSourceCode">
-                    <a href="https://github.com/VJ-2303/interpreter" class="project-card" target="_blank"
-                        rel="noopener noreferrer" itemprop="codeRepository">
-                        <div class="project-header">
-                            <h3 class="project-title" itemprop="name">🧮 Interpreter (Go)</h3>
-                            <span class="project-tech" itemprop="programmingLanguage">Go • Parsing • AST</span>
-                        </div>
-                        <p class="project-desc" itemprop="description">
-                            A toy language interpreter written in Go. Includes lexer, parser, and evaluator components
-                            showcasing AST construction and expression execution.
-                        </p>
-                    </a>
-                    <meta itemprop="author" content="VJ">
-                </article>
-
-            </div>
-
-            <div class="view-all">
-                <a href="https://github.com/vj-2303" rel="noopener noreferrer" target="_blank"
-                    aria-label="View all VJ's projects on GitHub">
-                    View all projects <span aria-hidden="true">→</span>
-                </a>
-            </div>
-        </section>
-
-        <!-- FOOTER -->
-        <footer role="contentinfo">
-            <span>© <time datetime="2025">2025</time> <span itemscope itemtype="https://schema.org/Person"><span
-                        itemprop="name">VJ</span></span></span>
-            <span itemscope itemtype="https://schema.org/Place"><span itemprop="address" itemscope
-                    itemtype="https://schema.org/PostalAddress"><span itemprop="addressLocality">Coimbatore</span>,
-                    <span itemprop="addressCountry">IN</span></span></span>
-        </footer>
-
-    </main>
-
-    <!-- Hidden SEO-friendly content for accessibility -->
-    <aside class="sr-only" aria-hidden="true">
-        <h2>About VJ - Backend Engineer</h2>
-        <p>VJ (Vanaraj P) is a skilled Backend Engineer and Computer Science student based in Coimbatore, Tamil Nadu,
-            India. Specializing in Golang (Go) and C programming, VJ builds high-performance, scalable backend systems.
-            With expertise in RESTful API development, PostgreSQL databases, Docker containerization, and DevOps
-            practices, VJ is passionate about system architecture, concurrency, and memory management. Currently
-            exploring the open-source ecosystem and dedicated to building reliable, efficient backend infrastructures.
-        </p>
-        <h3>Contact Information</h3>
-        <p>Email: vanaraj1018@gmail.com | GitHub: VJ-2303 | Twitter: @vj_0x | LinkedIn: vanaraj-p-372405306</p>
-        <h3>Skills and Technologies</h3>
-        <p>Golang, Go, C, C++, Python, SQL, PostgreSQL, REST APIs, RESTful Services, Microservices, Docker, Kubernetes,
-            Git, GitHub, Linux, Bash, Shell Scripting, Concurrency, Parallel Programming, Memory Management, System
-            Programming, Backend Development, Server-Side Development, DevOps, CI/CD, Software Engineering</p>
-    </aside>
-
 </body>
-
 </html>
